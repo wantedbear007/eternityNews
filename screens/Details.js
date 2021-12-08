@@ -1,7 +1,12 @@
-import React from 'react';
-import {Text} from 'react-native';
+import React from 'react'
+import { View, Text } from 'react-native'
 
-const Details = ({navigation}) => {
-  return <Text>Details screen</Text>;
-};
-export default Details;
+const Details = () => {
+    return (
+        <View>
+            <Text>Details page.</Text>
+        </View>
+    )
+}
+
+export default Details

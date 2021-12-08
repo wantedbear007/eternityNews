@@ -1,12 +1,6 @@
 import React from 'react';
-import Home from './screens/Home';
 import Navigator from './navigation/Navigator';
 
-const App = () => {
-  return (
-    
-      <Navigator />
-  );
-};
+const App = () => <Navigator />;
 
 export default App;
