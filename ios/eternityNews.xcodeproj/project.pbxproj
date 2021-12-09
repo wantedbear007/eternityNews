@@ -28,6 +28,9 @@
 		C259DA690C1D46A2841CD932 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0B941DF3948437E806D0C67 /* Octicons.ttf */; };
 		828E72267D9D4FE3A614BA1B /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58C9BC81426743ADA781060E /* SimpleLineIcons.ttf */; };
 		28D0442C1B584685A231BAC1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD29DAE277DB414CA6CAC752 /* Zocial.ttf */; };
+		C892C85E8D2F435E8AE6ABD8 /* JosefinSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3713E9A2EA3B475FA52A19DF /* JosefinSans-Bold.ttf */; };
+		AE496349E46D4599AC4DEBA8 /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4889D7B243634F58B621C0F2 /* JosefinSans-Regular.ttf */; };
+		75B6A9A0A272464D99E3828E /* JosefinSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C05C4BF6257248D89EA60CF4 /* JosefinSans-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		D0B941DF3948437E806D0C67 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		58C9BC81426743ADA781060E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FD29DAE277DB414CA6CAC752 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3713E9A2EA3B475FA52A19DF /* JosefinSans-Bold.ttf */ = {isa = PBXFileReference; name = "JosefinSans-Bold.ttf"; path = "../assets/fonts/JosefinSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4889D7B243634F58B621C0F2 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; name = "JosefinSans-Regular.ttf"; path = "../assets/fonts/JosefinSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C05C4BF6257248D89EA60CF4 /* JosefinSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "JosefinSans-SemiBold.ttf"; path = "../assets/fonts/JosefinSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,9 @@
 				D0B941DF3948437E806D0C67 /* Octicons.ttf */,
 				58C9BC81426743ADA781060E /* SimpleLineIcons.ttf */,
 				FD29DAE277DB414CA6CAC752 /* Zocial.ttf */,
+				3713E9A2EA3B475FA52A19DF /* JosefinSans-Bold.ttf */,
+				4889D7B243634F58B621C0F2 /* JosefinSans-Regular.ttf */,
+				C05C4BF6257248D89EA60CF4 /* JosefinSans-SemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -287,6 +296,9 @@
 				C259DA690C1D46A2841CD932 /* Octicons.ttf in Resources */,
 				828E72267D9D4FE3A614BA1B /* SimpleLineIcons.ttf in Resources */,
 				28D0442C1B584685A231BAC1 /* Zocial.ttf in Resources */,
+				C892C85E8D2F435E8AE6ABD8 /* JosefinSans-Bold.ttf in Resources */,
+				AE496349E46D4599AC4DEBA8 /* JosefinSans-Regular.ttf in Resources */,
+				75B6A9A0A272464D99E3828E /* JosefinSans-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
