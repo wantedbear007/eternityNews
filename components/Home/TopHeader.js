@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     fontFamily: 'JosefinSans-Bold',
   },
   slogan: {
+    marginBottom: 6,
     fontSize: 10,
     fontFamily: 'JosefinSans-SemiBold',
     marginLeft: 18

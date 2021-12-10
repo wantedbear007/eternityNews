@@ -1,20 +1,28 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import Theme from '../../assets/UI/Theme';
 import TrendingData from './TrendingData';
 
 const TrendingNews = () => {
   const colors = Theme();
+
   // FlatList function
   const DataRender = ({item}) => (
-    <View
+    <TouchableOpacity activeOpacity={0.4}
       style={[styles.cardContainer, {backgroundColor: colors.cardBackground}]}>
       <Image source={{uri: item.image_url}} style={styles.imageContainer} />
       <Text style={[styles.newsTitle, {color: colors.text}]}>{item.title}</Text>
       <Text style={[styles.sourceText, {color: colors.disabledText}]}>
         {item.source_name}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -38,8 +46,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   parentContainer: {
-    marginHorizontal: 20,
     marginVertical: 17,
+    marginHorizontal: 20,
   },
   cardContainer: {
     paddingHorizontal: 19,
