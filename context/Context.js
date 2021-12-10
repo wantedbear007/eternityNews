@@ -4,7 +4,7 @@ import {useColorScheme} from 'react-native';
 const Context = createContext();
 
 export function ContextContainer({children}) {
-  const [darkTheme, setDarkTheme] = useState(true);
+  const [darkTheme, setDarkTheme] = useState(false);
 
   const themeHandler = value => {
     setDarkTheme(value => !value);

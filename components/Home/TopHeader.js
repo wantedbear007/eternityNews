@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    fontFamily: 'JosefinSans-Regular',
+    fontFamily: 'JosefinSans-Bold',
   },
   slogan: {
     fontSize: 10,

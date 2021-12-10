@@ -5,6 +5,7 @@ import Theme from '../assets/UI/Theme';
 import Context from '../context/Context';
 import Card from '../components/UI/Card';
 import TopHeader from '../components/Home/TopHeader';
+import TrendingNews from '../components/Home/TrendingNews';
 
 const Home = ({navigation}) => {
   const {themeHandler} = useContext(Context);
@@ -12,16 +13,9 @@ const Home = ({navigation}) => {
   return (
     <Card>
       <TopHeader navigation={navigation} />
-      <Button title="theme" onPress={() => themeHandler(true)} />
+      <TrendingNews />
     </Card>
   );
 };
-
-const styles = StyleSheet.create({
-  textContainer: {
-    fontSize: 60,
-    fontFamily: 'JosefinSans-Bold',
-  },
-});
 
 export default Home;
