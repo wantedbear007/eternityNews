@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  ScrollView,
   FlatList,
   TouchableOpacity,
   StyleSheet,
@@ -20,12 +19,9 @@ const Contents = () => {
     const DataRender = ({item}) => (
       <TouchableOpacity
         activeOpacity={0.4}
-        style={[
-          styles.cardContainer,
-          {backgroundColor: colors.cardBackground},
-        ]}>
-        <Image source={{uri: item.image_url}} style={styles.imageContainer} />
-        <Text style={[styles.newsTitle, {color: colors.text}]}>
+        style={[styles.trendingCard, {backgroundColor: colors.cardBackground}]}>
+        <Image source={{uri: item.image_url}} style={styles.trendingImage} />
+        <Text style={[styles.trendingTitle, {color: colors.text}]}>
           {item.title}
         </Text>
         <Text style={[styles.sourceText, {color: colors.disabledText}]}>
@@ -34,7 +30,7 @@ const Contents = () => {
       </TouchableOpacity>
     );
     return (
-      <View>
+      <View style={styles.trendingContainer}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -50,23 +46,22 @@ const Contents = () => {
   const TodaysRead = () => {
     const RenderData = ({item}) => (
       <View
-        style={[
-          styles.cardContainer,
-          {backgroundColor: colors.cardBackground},
-        ]}>
+        style={[styles.compactCard, {backgroundColor: colors.cardBackground}]}>
         <View>
-          <Image source={{uri: item.image_url}} style={styles.image} />
+          <Image source={{uri: item.image_url}} style={styles.compactImage} />
         </View>
         <View>
-          <Text style={[styles.title, {color: colors.text}]}>{item.title}</Text>
-          <Text style={[styles.source, {color: colors.disabledText}]}>
+          <Text style={[styles.compactTitle, {color: colors.text}]}>
+            {item.title}
+          </Text>
+          <Text style={[styles.sourceText, {color: colors.disabledText}]}>
             {item.source_name}
           </Text>
         </View>
       </View>
     );
     return (
-      <View>
+      <View style={styles.compactContainer}>
         <FlatList
           data={DummyData}
           keyExtractor={(item, index) => index.toString()}
@@ -90,22 +85,24 @@ const styles = StyleSheet.create({
     fontFamily: 'JosefinSans-SemiBold',
     marginBottom: 15,
   },
-  parentContainer: {
+
+  // Trending Styles
+  trendingContainer: {
     marginVertical: 17,
     marginHorizontal: 20,
   },
-  cardContainer: {
+  trendingCard: {
     paddingHorizontal: 19,
     paddingVertical: 20,
     borderRadius: 20,
     marginRight: 7,
   },
-  newsTitle: {
+  trendingTitle: {
     fontSize: 18,
     width: 220,
-    fontFamily: 'JosefinSans-SemiBold',
+    // fontFamily: 'JosefinSans-SemiBold',
   },
-  imageContainer: {
+  trendingImage: {
     width: '100%',
     height: 150,
     resizeMode: 'contain',
@@ -113,6 +110,31 @@ const styles = StyleSheet.create({
   },
   sourceText: {
     alignSelf: 'flex-end',
+  },
+
+  // Compact Section Styles
+
+  compactCard: {
+    paddingHorizontal: 19,
+    paddingVertical: 20,
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    resizeMode: 'contain',
+    marginBottom: 7,
+  },
+  compactImage: {
+    borderRadius: 100,
+    width: 70,
+    height: 70,
+  },
+  compactTitle: {
+    width: 220,
+    // fontFamily: 'JosefinSans-Regular',
+  },
+  compactContainer: {
+    marginHorizontal: 20,
   },
 });
 
