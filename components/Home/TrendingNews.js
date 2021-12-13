@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import Theme from '../../assets/UI/Theme';
 import TrendingData from './TrendingData';
