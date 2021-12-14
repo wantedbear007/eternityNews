@@ -11,6 +11,7 @@ const TopHeader = ({navigation}) => {
   const themeButtonHandler = () => themeHandler(true);
   const aboutButtonHandler = () => navigation.navigate('About');
 
+
   return (
     <View style={styles.parentContainer}>
       <View style={styles.textContainer}>

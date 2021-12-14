@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   Text,
@@ -6,19 +6,21 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Animated,
 } from 'react-native';
 import TrendingData from './TrendingData';
 import DummyData from '../../DummyData';
 import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
 
-const Contents = () => {
+const Contents = ({navigation}) => {
   const colors = Theme();
 
   //   Trending Section
   const Trending = () => {
     const DataRender = ({item}) => (
       <TouchableOpacity
+        onPress={() => navigation.navigate('Details', {data: item})}
         activeOpacity={0.4}
         style={[styles.trendingCard, {backgroundColor: colors.cardBackground}]}>
         <Image source={{uri: item.image_url}} style={styles.trendingImage} />
@@ -35,7 +37,9 @@ const Contents = () => {
       <View style={styles.trendingContainer}>
         <Text style={[styles.title, {color: colors.accent}]}>Trending</Text>
         <FlatList
-        // decelerationRate={0}
+          // decelerationRate={0}
+          scrollEventThrottle={16}
+          // bounces={false}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={TrendingData}
@@ -48,26 +52,34 @@ const Contents = () => {
 
   //   TodaysRead Section
   const TodaysRead = () => {
-    const RenderData = ({item}) => (
-      <TouchableOpacity
-        activeOpacity={0.4}
-        style={[styles.compactCard, {backgroundColor: colors.cardBackground}]}>
-        <Image source={{uri: item.image_url}} style={styles.compactImage} />
-        <View>
-          <Text
-            style={[
-              styles.compactTitle,
-              {color: colors.text, width: ScreenDimensions.width * 0.65},
-            ]}>
-            {item.title}
-          </Text>
-          <Text style={{color: colors.accent}}>Read More..</Text>
-          <Text style={[styles.sourceText, {color: colors.disabledText}]}>
-            {item.source_name}
-          </Text>
+    const RenderData = ({item, index}) => {
+      return (
+        <View
+          activeOpacity={0.4}
+          style={[
+            styles.compactCard,
+            {backgroundColor: colors.cardBackground},
+          ]}>
+          <Image source={{uri: item.image_url}} style={styles.compactImage} />
+          <View>
+            <Text
+              style={[
+                styles.compactTitle,
+                {color: colors.text, width: ScreenDimensions.width * 0.65},
+              ]}>
+              {item.title}
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Details', {data: item})}>
+              <Text style={{color: colors.accent}}>Read More..</Text>
+            </TouchableOpacity>
+            <Text style={[styles.sourceText, {color: colors.disabledText}]}>
+              {item.source_name}
+            </Text>
+          </View>
         </View>
-      </TouchableOpacity>
-    );
+      );
+    };
+
     return (
       <View style={styles.compactContainer}>
         {/* <Text style={[styles.heading, {color: colors.accent}]}>
@@ -75,6 +87,7 @@ const Contents = () => {
         </Text> */}
         <FlatList
           showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
           data={DummyData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={RenderData}
@@ -84,7 +97,26 @@ const Contents = () => {
     );
   };
 
-  return <TodaysRead />;
+  let AnimatedValue = val => {
+    console.log(lol);
+  };
+
+  let AnimatedHeaderValue = new Animated.Value(0);
+  const HEADER_MAX_HEIGHT = 150;
+  const HEADER_MIN_HEIGHT = 50;
+
+  const animatedHeaderBackground = AnimatedHeaderValue.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+    outputRange: ['blue', 'red'],
+    extrapolate: 'clamp',
+  });
+
+  return (
+    <>
+      {/* <TopHeader AnimatedHeaderValue={AnimatedValue} /> */}
+      <TodaysRead />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -107,6 +139,7 @@ const styles = StyleSheet.create({
   trendingTitle: {
     fontSize: 18,
     width: 220,
+    fontWeight: '600',
   },
   trendingImage: {
     width: '100%',
@@ -121,7 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: 20,
     marginBottom: 10,
-    fontSize: 20
+    fontSize: 20,
   },
 
   // Compact Section Styles

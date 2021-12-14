@@ -7,6 +7,7 @@ import Home from '../screens/Home';
 import About from '../screens/About';
 import Details from '../screens/Details';
 
+
 const Stack = createNativeStackNavigator();
 
 const Navigator = () => (

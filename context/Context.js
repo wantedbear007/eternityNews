@@ -10,6 +10,8 @@ export function ContextContainer({children}) {
     setDarkTheme(value => !value);
   };
 
+  
+
   return (
     <Context.Provider value={{themeHandler, darkTheme}}>
       {children}
