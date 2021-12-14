@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   title: {
-    fontWeight: '400',
+    fontWeight: '600',
     marginLeft: 20,
     marginBottom: 10,
     fontSize: 20,

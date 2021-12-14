@@ -7,16 +7,24 @@ import {
   StyleSheet,
   ScrollView,
   Linking,
+  Share,
 } from 'react-native';
 import TopNav from '../components/UI/TopNav';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Details = ({route, navigation}) => {
   const colors = Theme();
-  // console.log(route.params.data);
   const item = route.params.data;
-  console.log(item);
+
+  // ShareFunction
+  const onShare = () => {
+    Share.share({
+      message: item.title + ' Read more..' + item.source_url,
+    });
+  };
+
   return (
     <Card>
       <TopNav navigation={navigation} />
@@ -43,10 +51,16 @@ const Details = ({route, navigation}) => {
             <Text style={[styles.description, {color: colors.text}]}>
               {item.description}
             </Text>
-            <TouchableOpacity onPress={() => {Linking.openURL(item.source_url)}}>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(item.source_url);
+              }}>
               <Text style={{color: colors.accent}}>Read source</Text>
             </TouchableOpacity>
           </View>
+          <TouchableOpacity onPress={onShare}>
+            <FontAwesome name="share" size={30} color={colors.disabledText} />
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </Card>
@@ -83,6 +97,7 @@ const styles = StyleSheet.create({
   },
   authorName: {
     fontWeight: '600',
+    marginRight: 3,
   },
   sourceName: {
     fontWeight: 'bold',
