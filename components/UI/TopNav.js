@@ -8,7 +8,7 @@ const TopNav = ({navigation}) => {
   return (
     <TouchableOpacity
       style={{marginLeft: 10, marginVertical: 15}}
-      onPress={() => navigation.navigate('Home')}>
+      onPress={() => navigation.navigate('BottomNav')}>
       <Ionicons name="arrow-back" size={30} color={colors.text} />
     </TouchableOpacity>
   );
