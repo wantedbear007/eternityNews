@@ -58,10 +58,10 @@ const About = () => {
             </Text>
           </View>
           <TouchableOpacity onPress={telegramHandler}>
-            <FontAwesome name="telegram" size={30} color={colors.text} />
+            <FontAwesome name="telegram" size={35} color={colors.text} />
           </TouchableOpacity>
           <TouchableOpacity onPress={githubHandler}>
-            <FontAwesome name="github" size={30} color={colors.text} />
+            <FontAwesome name="github" size={35} color={colors.text} />
           </TouchableOpacity>
         </View>
       </View>
@@ -88,15 +88,18 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   cardTitle: {
+    marginLeft: 10,
     fontSize: 18,
     fontWeight: '500',
   },
   card: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
   },
   cardDescription: {
     fontSize: 14,
+    marginLeft: 10,
   },
   logoContainer: {},
   version: {
