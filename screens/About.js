@@ -49,7 +49,7 @@ const About = () => {
           {backgroundColor: colors.cardBackground, marginTop: 30},
         ]}>
         <View style={styles.card}>
-          <View style={styles.logoContainer}>
+          <View>
             <Text style={[styles.version, {color: colors.disabledText}]}>
               Version: 1.0
             </Text>
@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 10,
   },
-  logoContainer: {},
   version: {
     fontWeight: '500',
   },

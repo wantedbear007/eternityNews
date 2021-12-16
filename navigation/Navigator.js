@@ -2,7 +2,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
 
@@ -31,8 +30,8 @@ const BottomNav = () => {
         bottom: 7,
         left: 10,
         right: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 6,
+        paddingHorizontal: 15,
+        paddingVertical: 4,
         marginHorizontal: 10,
         borderRadius: 20,
         elevation: 20,

@@ -8,7 +8,7 @@ import Contents from '../components/Home/Contents';
 const Home = ({navigation}) => {
   return (
     <Card>
-      <TopHeader navigation={navigation} />
+      <TopHeader/>
       <Contents navigation={navigation} />
     </Card>
   );
