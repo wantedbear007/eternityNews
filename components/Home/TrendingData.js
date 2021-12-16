@@ -6,7 +6,7 @@ const TrendingData = [
       "Actor Sidharth Malhotra on Wednesday condoled the demise of CDS General Bipin Rawat. Taking to Instagram, he shared a group picture from his movie Shershaah's trailer launch held at Kargil on the eve of Kargil Vijay Diwas, this year. The picture featured the cast of 'Shershaah' posing with CDS General Bipin Rawat. Alongside it, he wrote, \"Really sad and shocked.\"",
     author_name: 'Mahima Kharbanda',
     source_name: 'ANI',
-    source_url:
+    source_url:   
       'https://aninews.in/news/entertainment/bollywood/siddharth-malhotra-mourns-demise-of-cds-gen-bipin-rawat-shares-picture-from-shershaah-trailer-launch20211208232137/?utm_campaign=fullarticle&utm_medium=referral&utm_source=inshorts',
     image_url:
       'https://static.inshorts.com/inshorts/images/v1/variants/jpg/m/2021/12_dec/9_thu/img_1639045292613_912.jpg?',
