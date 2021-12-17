@@ -1,12 +1,50 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import Card from '../components/UI/Card'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Theme from '../assets/UI/Theme';
 
 const Explore = () => {
+  const colors = Theme()
+
+
   return (
+    <Card>
+    <View style={styles.parentContainer}>
+    <View style={styles.topContainer}>
+      <MaterialIcons name='explore' size={45} color={colors.text} />
+      <Text style={[styles.headingText, {color: colors.text}]}>Explore</Text>
+    </View> 
     <View>
-      <Text>Explore</Text>
+      <View>
+        {/* btc */}
+      </View>
+      <View>
+      {/* eth */}
+      </View>
+      <View>
+        {/* <Image source={} /> */}
+      </View>
     </View>
+    </View>
+    </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  parentContainer: {
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
+  topContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headingText: {
+    fontSize: 30,
+    marginLeft: 5,
+    fontFamily: 'JosefinSans-SemiBold',
+  },
+})
 
 export default Explore;

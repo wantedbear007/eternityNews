@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  Animated,
 } from 'react-native';
 import TrendingData from './TrendingData';
 import DummyData from '../../DummyData';
@@ -69,7 +68,8 @@ const Contents = ({navigation}) => {
               ]}>
               {item.title}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Details', {data: item})}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {data: item})}>
               <Text style={{color: colors.accent}}>Read More..</Text>
             </TouchableOpacity>
             <Text style={[styles.sourceText, {color: colors.disabledText}]}>
@@ -97,23 +97,8 @@ const Contents = ({navigation}) => {
     );
   };
 
-  let AnimatedValue = val => {
-    console.log(lol);
-  };
-
-  let AnimatedHeaderValue = new Animated.Value(0);
-  const HEADER_MAX_HEIGHT = 150;
-  const HEADER_MIN_HEIGHT = 50;
-
-  const animatedHeaderBackground = AnimatedHeaderValue.interpolate({
-    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-    outputRange: ['blue', 'red'],
-    extrapolate: 'clamp',
-  });
-
   return (
     <>
-      {/* <TopHeader AnimatedHeaderValue={AnimatedValue} /> */}
       <TodaysRead />
     </>
   );

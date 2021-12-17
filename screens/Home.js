@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
 
 import Card from '../components/UI/Card';
 import TopHeader from '../components/Home/TopHeader';

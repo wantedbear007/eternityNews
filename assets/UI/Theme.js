@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import Context from '../../context/Context';
 
 const Theme = () => {
-  const {themeHandler, darkTheme} = useContext(Context);
+  const {darkTheme} = useContext(Context);
 
   colorsScheme = {
     background: darkTheme ? '#000' : '#fff',
