@@ -16,73 +16,78 @@ const CryptoSection = () => {
 
   return (
     <View style={styles.parentContainer}>
-      <View>
-        {price.map((item, index) => {
-          return (
-            <View
-              key={index}
-              style={[
-                styles.pricesContainer,
-                {
-                  backgroundColor:
-                    item.price_change_percentage_24h > 0
-                      ? '#53A548'
-                      : '#C1292E',
-                },
-              ]}>
-              <Image source={{uri: item.image}} style={styles.image} />
-              <View>
-                <Text style={styles.name}>{item.id.toUpperCase()}</Text>
-                <Text style={styles.price}>₹ {item.current_price}</Text>
-                <Text style={styles.percentage}>
-                  {item.price_change_percentage_24h.toFixed(2)}%
-                </Text>
-              </View>
+      {price.map((item, index) => {
+        const lol = Number(item.price);
+        return (
+          <View
+            key={index}
+            style={[
+              styles.pricesContainer,
+              {
+                backgroundColor:
+                  item.price_change_percentage_24h > 0 ? '#53A548' : '#C1292E',
+              },
+            ]}>
+            <Image source={{uri: item.image}} style={styles.image} />
+            <View style={styles.textContainer}>
+              <Text style={styles.name}>{item.id.toUpperCase()}</Text>
+              <Text style={styles.price}>
+                ₹{' '}
+                {item.current_price.toLocaleString('en-IN', {
+                  maximumFractionDigits: 2,
+                  style: 'currency',
+                  currency: 'INR',
+                })}
+              </Text>
+              <Text style={styles.percentage}>
+                {item.price_change_percentage_24h.toFixed(2)}%
+              </Text>
             </View>
-          );
-        })}
-      </View>
-
-      <Text>lol</Text>
+          </View>
+        );
+      })}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   parentContainer: {
-    marginTop: 30,
+    marginTop: 25,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
+
   pricesContainer: {
-    marginBottom: 10,
-    backgroundColor: '#f12',
-    paddingVertical: 11,
-    paddingHorizontal: 10,
-    width: 180,
+    marginHorizontal: 9,
+    paddingVertical: 5,
+    paddingHorizontal: 30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 60,
-    marginLeft: 20,
+    borderRadius: 15,
     elevation: 20,
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     marginRight: 7,
+  },
+  textContainer: {
+    alignItems: 'center',
   },
   name: {
     color: colors.white,
     fontWeight: '500',
-    fontSize: 15,
+    fontSize: 10,
   },
   price: {
     color: colors.white,
-    fontSize: 12,
+    fontSize: 13,
   },
   percentage: {
-    color: colors.disabledText,
+    color: colors.text,
     fontSize: 10,
+    fontWeight: '600',
   },
 });
 
