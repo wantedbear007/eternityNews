@@ -3,6 +3,7 @@ const colors = {
   background: '#000',
   cardBackground: '#1B1B1E',
   white: '#fff',
+  disabledText:'#A7A7A7',
   black: '#000',
 };
 

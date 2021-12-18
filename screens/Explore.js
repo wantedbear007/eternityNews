@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import Card from '../components/UI/Card'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
+import CryptoSection from '../components/Explore/CryptoSection';
 
 const Explore = () => {
   const colors = Theme()
@@ -15,18 +16,8 @@ const Explore = () => {
       <MaterialIcons name='explore' size={45} color={colors.text} />
       <Text style={[styles.headingText, {color: colors.text}]}>Explore</Text>
     </View> 
-    <View>
-      <View>
-        {/* btc */}
-      </View>
-      <View>
-      {/* eth */}
-      </View>
-      <View>
-        {/* <Image source={} /> */}
-      </View>
     </View>
-    </View>
+    <CryptoSection />
     </Card>
   );
 };
