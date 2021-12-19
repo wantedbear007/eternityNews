@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
   },
 
   pricesContainer: {
-    marginHorizontal: 9,
+    marginHorizontal: 5,
     paddingVertical: 5,
-    paddingHorizontal: 30,
+    paddingHorizontal: 35,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

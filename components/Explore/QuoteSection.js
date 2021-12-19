@@ -17,14 +17,14 @@ const QuoteSection = () => {
         setAuthor(data.author);
       });
   };
+
   useEffect(() => {
     RandomQuote();
   }, []);
 
-
   const CustomBtn = ({icon, onPress}) => (
     <TouchableOpacity onPress={onPress}>
-      <FontAwesome5 name={icon} size={25} color={colors.text} />
+      <FontAwesome5 name={icon} size={23} color={colors.text} />
     </TouchableOpacity>
   );
 
@@ -41,7 +41,7 @@ const QuoteSection = () => {
         {backgroundColor: colors.cardBackground},
       ]}>
       <Text style={[styles.quote, {color: colors.text}]}>
-        {quote ? quote : 'Loading...'}
+        "{quote ? quote : 'Loading...'}"
       </Text>
       <View>
         <Text style={[styles.author, {color: colors.disabledText}]}>
