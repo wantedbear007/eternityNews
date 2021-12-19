@@ -4,6 +4,7 @@ import Card from '../components/UI/Card'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
 import CryptoSection from '../components/Explore/CryptoSection';
+import QuoteSection from '../components/Explore/QuoteSection';
 
 const Explore = () => {
   const colors = Theme()
@@ -18,6 +19,7 @@ const Explore = () => {
     </View> 
     </View>
     <CryptoSection />
+    <QuoteSection />
     </Card>
   );
 };
