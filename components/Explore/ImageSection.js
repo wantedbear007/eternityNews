@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, FlatList, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
-import { Divider } from 'react-native-paper';
-
+import {Divider} from 'react-native-paper';
 
 const ImageSection = () => {
   const colors = Theme();
-  const [imageData, setImageData] = useState();
+  const [imageData, setImageData] = useState([]);
 
   useEffect(() => {
     let pageNumber = Math.floor(Math.random() * 200);
@@ -17,37 +16,38 @@ const ImageSection = () => {
       .then(data => setImageData(data));
   }, []);
 
-  const DataFetchHandler = ({item}) => (
-    <View>
-      <Image source={{uri: item.download_url}} style={styles.image} />
-      <Text style={[styles.authorName, {color: colors.background}]}>
-        {item.author}
-      </Text>
-    </View>
-  );
-
   return (
-    <View>
-      <FlatList
+    <View style={styles.parent}>
+      <ScrollView
         horizontal
         pagingEnabled
-        scrollEventThrottle={16}
-        showsHorizontalScrollIndicator={false}
-        data={imageData}
-        keyExtractor={item => item.id}
-        renderItem={DataFetchHandler}
+        showsHorizontalScrollIndicator={false}>
+        {imageData.map(data => (
+          <View style={styles.imageParent} key={data.id}>
+          {!data.download_url ? <Text>LOADING...</Text>:  <Image source={{uri: data.download_url}} style={styles.image} /> }
+            {/* <Image source={{uri: data.download_url}} style={styles.image} /> */}
+            <Text style={[styles.authorName, {color: colors.background}]}>
+              {data.author}
+            </Text>
+          </View>
+        ))}
+        
+      <Divider
+        horizontal={true}
+        style={[styles.divider, {backgroundColor: colors.text}]}
       />
-      <Divider horizontal={true} style={{backgroundColor: colors.text}} />
+      </ScrollView>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   image: {
-    width: ScreenDimensions.width,
+    width: ScreenDimensions.width - 30,
     height: 300,
-    resizeMode: 'contain',
-    marginRight: 3,
+    resizeMode: 'cover',
+    borderRadius: 20,
   },
   authorName: {
     fontSize: 14,
@@ -58,6 +58,14 @@ const styles = StyleSheet.create({
     right: ScreenDimensions.width / 10,
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     textAlign: 'right',
+  },
+  divider: {
+    marginHorizontal: 50,
+    marginVertical: 20,
+  },
+
+  parent: {
+    marginHorizontal: 15,
   },
 });
 

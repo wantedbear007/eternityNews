@@ -12,6 +12,7 @@ const Explore = () => {
 
   return (
     <Card>
+    <ScrollView>
       <View style={styles.parentContainer}>
         <View style={styles.topContainer}>
           <MaterialIcons name="explore" size={45} color={colors.text} />
@@ -23,7 +24,7 @@ const Explore = () => {
       <CryptoSection />
       <QuoteSection />
       <ImageSection />
-      
+      </ScrollView>
     </Card>
   );
 };
