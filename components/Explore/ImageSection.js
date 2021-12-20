@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
-import {Divider} from 'react-native-paper';
 
 const ImageSection = () => {
   const colors = Theme();
@@ -38,11 +37,6 @@ const ImageSection = () => {
             </Text>
           </View>
         ))}
-
-        <Divider
-          horizontal={true}
-          style={[styles.divider, {backgroundColor: colors.text}]}
-        />
       </ScrollView>
     </View>
   );

@@ -7,6 +7,9 @@ import CryptoSection from '../components/Explore/CryptoSection';
 import QuoteSection from '../components/Explore/QuoteSection';
 import ImageSection from '../components/Explore/ImageSection';
 import Greetings from '../components/Explore/Greetings';
+import Affirmation from '../components/Explore/Affirmation';
+import {Divider} from 'react-native-elements/dist/divider/Divider';
+import JokeSection from '../components/Explore/JokeSection';
 
 const Explore = () => {
   const colors = Theme();
@@ -29,6 +32,11 @@ const Explore = () => {
         <CryptoSection />
         <QuoteSection />
         <ImageSection />
+        <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+        <Affirmation />
+        <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+        <JokeSection />
+        <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
       </ScrollView>
     </Card>
   );
@@ -53,6 +61,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Cookie-Regular',
     marginLeft: 23,
     paddingTop: 20,
+  },
+  divider: {
+    marginVertical: 20,
+    marginHorizontal: 40,
   },
 });
 

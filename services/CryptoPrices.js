@@ -8,7 +8,6 @@ const CryptoPrices = async () => {
     const data = response.data;
     return data;
   } catch (error) {
-    console.log(error.message);
   }
 };
 
