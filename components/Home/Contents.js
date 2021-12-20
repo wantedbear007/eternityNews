@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,13 +7,27 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import TrendingData from './TrendingData';
-import DummyData from '../../DummyData';
 import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
+// import { TrendingNews } from '../../services/News';
+import axios from 'axios';
 
 const Contents = ({navigation}) => {
   const colors = Theme();
+  const [trendingNews, setTrendingNews] = useState();
+  const [news, setNews] = useState();
+
+  useEffect(() => {
+    fetch('https://inshortsv2.vercel.app/news?type=trending&limit=2')
+      .then(response => response.json())
+      .then(data => setTrendingNews(data.articles));
+  }, []);
+
+  useEffect(() => {
+    fetch('https://inshortsv2.vercel.app/news?type=all_news&limit=100')
+      .then(response => response.json())
+      .then(response => setNews(response.articles));
+  }, []);
 
   //   Trending Section
   const Trending = () => {
@@ -41,7 +55,7 @@ const Contents = ({navigation}) => {
           // bounces={false}
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={TrendingData}
+          data={trendingNews}
           keyExtractor={(item, index) => index.toString()}
           renderItem={DataRender}
         />
@@ -88,7 +102,7 @@ const Contents = ({navigation}) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
-          data={DummyData}
+          data={news}
           keyExtractor={(item, index) => index.toString()}
           renderItem={RenderData}
           ListHeaderComponent={<Trending />}

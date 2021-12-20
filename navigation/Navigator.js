@@ -21,7 +21,7 @@ const BottomNav = () => {
   const colors = Theme();
   return (
     <Tab.Navigator
-      initialRouteName="Explore"
+      initialRouteName="Home"
       activeColor={colors.accent}
       shifting={true}
       barStyle={{
@@ -71,8 +71,7 @@ const BottomNav = () => {
 
 const Navigator = () => (
   <NavigationContainer>
-    <Stack.Navigator
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="BottomNav" component={BottomNav} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="About" component={About} />

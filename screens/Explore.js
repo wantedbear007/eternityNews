@@ -43,8 +43,8 @@ const Explore = () => {
         <SectionDivider />
         <JokeSection />
         <SectionDivider />
-        <WordSection />
-        <SectionDivider />
+        {/* <WordSection /> */}
+        {/* <SectionDivider /> */}
         <NasaSection />
       </ScrollView>
     </Card>

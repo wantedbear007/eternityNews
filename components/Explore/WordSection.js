@@ -12,16 +12,19 @@ const WordSection = () => {
       .then(response => setData(response));
   }, []);
 
-  console.log(data);
+  // console.log(data);
   return (
-    <View style={styles.parentContainer}>
-      {data.map((item, index) => (
-        <View key={index}>
-          <Text style={[styles.word, {color: colors.accent}]}>{item.word}</Text>
-          <Text style={{color: colors.disabledText}}>{item.definition}</Text>
-        </View>
-      ))}
-    </View>
+<>
+    {data &&  <View style={styles.parentContainer}>
+    {data.map((item, index) => (
+      <View key={index}>
+        <Text style={[styles.word, {color: colors.accent}]}>{item.word}</Text>
+        <Text style={{color: colors.disabledText}}>{item.definition}</Text>
+      </View>
+    ))}
+  </View> }
+  </>
+   
   );
 };
 
