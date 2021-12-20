@@ -10,10 +10,16 @@ import Greetings from '../components/Explore/Greetings';
 import Affirmation from '../components/Explore/Affirmation';
 import {Divider} from 'react-native-elements/dist/divider/Divider';
 import JokeSection from '../components/Explore/JokeSection';
+import WordSection from '../components/Explore/WordSection';
+import NasaSection from '../components/Explore/NasaSection';
 
 const Explore = () => {
   const colors = Theme();
   const Greeting = Greetings();
+
+  const SectionDivider = () => (
+    <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+  );
 
   return (
     <Card>
@@ -32,11 +38,14 @@ const Explore = () => {
         <CryptoSection />
         <QuoteSection />
         <ImageSection />
-        <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+        <SectionDivider />
         <Affirmation />
-        <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+        <SectionDivider />
         <JokeSection />
-        <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+        <SectionDivider />
+        <WordSection />
+        <SectionDivider />
+        <NasaSection />
       </ScrollView>
     </Card>
   );
@@ -47,6 +56,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginTop: 10,
   },
+
   topContainer: {
     flexDirection: 'row',
     alignItems: 'center',
