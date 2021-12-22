@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
-// import { TrendingNews } from '../../services/News';
-import axios from 'axios';
 
 const Contents = ({navigation}) => {
   const colors = Theme();
@@ -50,9 +48,7 @@ const Contents = ({navigation}) => {
       <View style={styles.trendingContainer}>
         <Text style={[styles.title, {color: colors.accent}]}>Trending</Text>
         <FlatList
-          // decelerationRate={0}
           scrollEventThrottle={16}
-          // bounces={false}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={trendingNews}
@@ -96,9 +92,6 @@ const Contents = ({navigation}) => {
 
     return (
       <View style={styles.compactContainer}>
-        {/* <Text style={[styles.heading, {color: colors.accent}]}>
-          Today's Read
-        </Text> */}
         <FlatList
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
