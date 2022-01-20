@@ -20,7 +20,7 @@ const DailyRead = ({navigation}) => {
   useEffect(() => {
     axios
       .get(
-        `https://inshortsv2.vercel.app/news?type=top_stories&limit=${newsQuantity}`,
+        `https://inshortsv2.vercel.app/news?type=all_news&limit=${newsQuantity}`,
       )
       .then(response => {
         setNews(response.data.articles);
