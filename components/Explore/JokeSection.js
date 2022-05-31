@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Theme from '../../assets/UI/Theme';
 
-const JokeSection = () => {
-  const colors = Theme();
+const JokeSection = ({colors}) => {
   const [jokes, setJokes] = useState([]);
   const JokeHandler = () => {
     fetch('https://v2.jokeapi.dev/joke/Any?type=single')
@@ -42,7 +40,6 @@ const styles = StyleSheet.create({
   joke: {
     fontSize: 17,
     fontWeight: '600',
-    fontFamily: 'JosefinSans-Regular',
   },
   category: {
     fontWeight: '700',

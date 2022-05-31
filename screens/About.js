@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
   },
   title: {
     marginRight: 20,
-    fontFamily: 'JosefinSans-SemiBold',
     fontSize: 50,
     marginVertical: ScreenDimensions.height * 0.15,
     alignItems: 'flex-end',

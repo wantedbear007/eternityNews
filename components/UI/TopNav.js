@@ -1,10 +1,9 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Theme from '../../assets/UI/Theme';
 
 const TopNav = ({navigation}) => {
-  const colors = Theme();
+  // const colors = Theme();
   return (
     <TouchableOpacity
       style={{marginLeft: 10, marginVertical: 15}}

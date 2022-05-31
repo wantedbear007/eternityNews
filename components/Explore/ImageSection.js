@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
-import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
 
-const ImageSection = () => {
-  const colors = Theme();
+const ImageSection = ({colors}) => {
+  // const colors = Theme();
   const [imageData, setImageData] = useState([]);
 
   useEffect(() => {

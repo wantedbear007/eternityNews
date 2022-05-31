@@ -1,13 +1,12 @@
 import {StyleSheet, Text, View, FlatList, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import Theme from '../../assets/UI/Theme';
 import axios from 'axios';
 import TrendingNewsRender from './TrendingNewsRender';
 import {ActivityIndicator} from 'react-native-paper';
 
-const TrendingNews = ({navigation}) => {
-  const colors = Theme();
-
+const TrendingNews = ({colors, navigation}) => {
+  // const colors = Theme();
+  const [newsEnd, setNewsEnd] = useState(false);
   const [news, setNews] = useState([]);
   const [newsQuantity, setNewsQuantity] = useState(10);
   const [loading, setLoading] = useState(true);
@@ -28,7 +27,7 @@ const TrendingNews = ({navigation}) => {
     loading ? (
       <ActivityIndicator size="large" color={colors.text} />
     ) : (
-      <TrendingNewsRender item={item} navigation={navigation} />
+      <TrendingNewsRender colors={colors} item={item} navigation={navigation} />
     );
 
   const renderLoader = () => (
@@ -47,16 +46,27 @@ const TrendingNews = ({navigation}) => {
   // Infinite Scrolling
   const infiniteScrolling = () => {
     if (newsQuantity >= 30) {
-      ToastAndroid.show('No more news ☹️!', ToastAndroid.SHORT);
+      setNewsEnd(true);
+      ToastAndroid.show('No more news', ToastAndroid.SHORT);
     } else {
-      console.log('reached');
       setNewsQuantity(newsQuantity + 5);
     }
   };
 
   return (
     <View style={styles.trendingContainer}>
-      <Text style={[styles.title, {color: colors.accent}]}>Top Stories</Text>
+      <Text
+        style={[
+          {},
+          {
+            color: colors.accent,
+            textAlign: 'center',
+            marginBottom: 10,
+            fontWeight: '500',
+          },
+        ]}>
+        Top Stories
+      </Text>
       <FlatList
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
@@ -65,9 +75,9 @@ const TrendingNews = ({navigation}) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItems}
         onEndReached={infiniteScrolling}
-        ListFooterComponent={renderLoader}
+        ListFooterComponent={!newsEnd && renderLoader}
         legacyImplementation={false}
-        pagingEnabled={true}
+        // pagingEnabled={true}
         maxToRenderPerBatch={5}
         initialNumToRender={5}
         showsVerticalScrollIndicator={false}

@@ -10,8 +10,8 @@ const Home = ({navigation}) => {
   return (
     <Card>
       
-      <TopHeader />
-      <DailyRead navigation={navigation}/>
+      <TopHeader colors={colors} />
+      <DailyRead navigation={navigation} colors={colors}/>
       {/* <Contents navigation={navigation} /> */}
     </Card>
   );

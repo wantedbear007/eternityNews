@@ -2,8 +2,8 @@ import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import React, {memo} from 'react';
 import Theme from '../../assets/UI/Theme';
 
-const TrendingNewsRender = ({item, navigation}) => {
-  const colors = Theme();
+const TrendingNewsRender = ({colors, item, navigation}) => {
+  // const colors = Theme();
 
   // Navigation Function
   const NavigateDetailsPage = () => {
@@ -12,7 +12,7 @@ const TrendingNewsRender = ({item, navigation}) => {
   return (
     <TouchableOpacity
       onPress={NavigateDetailsPage}
-      activeOpacity={0.4}
+      activeOpacity={0.7}
       style={[styles.trendingCard, {backgroundColor: colors.cardBackground}]}>
       <Image source={{uri: item.image_url}} style={styles.trendingImage} />
       <Text style={[styles.trendingTitle, {color: colors.text}]}>
@@ -35,15 +35,16 @@ const styles = StyleSheet.create({
     marginRight: 7,
   },
   trendingTitle: {
-    fontSize: 18,
+    fontSize: 16,
+    marginTop: 5,
     width: 220,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   trendingImage: {
     width: '100%',
     height: 150,
     resizeMode: 'contain',
-    borderRadius: 51,
+    borderRadius: 20,
   },
   sourceText: {
     alignSelf: 'flex-end',

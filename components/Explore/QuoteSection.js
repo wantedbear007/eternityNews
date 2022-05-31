@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Share} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Theme from '../../assets/UI/Theme';
 
-const QuoteSection = () => {
-  const colors = Theme();
+const QuoteSection = ({colors}) => {
+  // const colors = Theme();
 
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
@@ -65,8 +64,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   quote: {
-    fontFamily: 'EBGaramond-Bold',
-    fontSize: 18,
+    fontSize: 16,
     alignItems: 'center',
   },
   author: {

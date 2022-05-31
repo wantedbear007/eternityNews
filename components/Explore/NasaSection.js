@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import Theme from '../../assets/UI/Theme';
 
 // https://api.nasa.gov/planetary/apod?api_key=0XVfgvwJDjzYEUxQPrsFA0UGtcR6YWA96MHbk6Im
 
-const NasaSection = () => {
-  const colors = Theme();
+const NasaSection = ({colors}) => {
+  // const colors = Theme();
   const [nasaData, setNasaData] = useState([]);
 
   useEffect(() => {
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: '600',
-    fontFamily: 'JosefinSans-SemiBold',
   },
   description: {
     fontSize: 15,

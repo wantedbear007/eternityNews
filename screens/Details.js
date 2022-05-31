@@ -11,12 +11,12 @@ import {
 } from 'react-native';
 import TopNav from '../components/UI/TopNav';
 import Card from '../components/UI/Card';
-import Theme from '../assets/UI/Theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Details = ({route, navigation}) => {
-  const colors = Theme();
+  // const colors = Theme();
   const item = route.params.data;
+  const colors = route.params.colors;
 
   // ShareFunction
   const onShare = () => {
@@ -27,7 +27,7 @@ const Details = ({route, navigation}) => {
 
   return (
     <Card>
-      <TopNav navigation={navigation} />
+      <TopNav navigation={navigation} colors={colors} />
       <ScrollView>
         <View style={styles.parentContainer}>
           <Text style={[styles.titleText, {color: colors.text}]}>

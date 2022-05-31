@@ -1,14 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View , Image} from 'react-native';
 import React, {memo} from 'react';
-import Theme from '../../assets/UI/Theme';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
 
-const DailyReadRender = ({item, navigation}) => {
-    const colors= Theme()
+const DailyReadRender = ({item, navigation, colors}) => {
+    // const colors= Theme()
     
         //   Navigation Function
         const NavigateDetailsPage = () => {
-          navigation.navigate('Details', {data: item});
+          navigation.navigate('Details', {data: item, colors: colors});
         };
         return (
           <View

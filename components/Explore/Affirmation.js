@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Theme from '../../assets/UI/Theme';
 
-const Affirmation = () => {
-    const colors = Theme()
+const Affirmation = ({colors}) => {
   const [affirmation, setAffirmation] = useState();
 
   useEffect(() => {
@@ -22,7 +20,6 @@ const Affirmation = () => {
 const styles = StyleSheet.create({
 text: {
     fontSize: 26,
-    fontFamily: 'JosefinSans-Bold',
     fontWeight: '500',
     textAlign: 'center',
     marginVertical: 15,

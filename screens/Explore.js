@@ -26,26 +26,26 @@ const Explore = () => {
       <ScrollView>
         <View style={styles.parentContainer}>
           <View style={styles.topContainer}>
-            <MaterialIcons name="explore" size={45} color={colors.text} />
+            <MaterialIcons name="explore" size={30} color={colors.text} />
             <Text style={[styles.headingText, {color: colors.text}]}>
               Explore
             </Text>
           </View>
         </View>
         <Text style={[styles.greet, {color: colors.text}]}>
-          {Greeting}, Pal !😄
+          {Greeting} !
         </Text>
         <CryptoSection />
-        <QuoteSection />
-        <ImageSection />
+        <QuoteSection colors={colors} />
+        <ImageSection colors={colors} />
         <SectionDivider />
-        <Affirmation />
-        <SectionDivider />
-        <JokeSection />
+        <Affirmation colors={colors}  />
+        <SectionDivider  />
+        <JokeSection colors={colors}  />
         <SectionDivider />
         {/* <WordSection /> */}
         {/* <SectionDivider /> */}
-        <NasaSection />
+        <NasaSection colors={colors}  />
       </ScrollView>
     </Card>
   );
@@ -62,13 +62,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headingText: {
-    fontSize: 30,
+    fontSize: 25,
     marginLeft: 5,
-    fontFamily: 'JosefinSans-SemiBold',
+    fontWeight: '800',
   },
   greet: {
-    fontSize: 29,
-    fontFamily: 'Cookie-Regular',
+    fontSize: 22,
     marginLeft: 23,
     paddingTop: 20,
   },
