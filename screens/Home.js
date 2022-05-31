@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Card from '../components/UI/Card';
 import TopHeader from '../components/Home/TopHeader';
 import Contents from '../components/Home/Contents';

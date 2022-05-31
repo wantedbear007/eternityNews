@@ -33,7 +33,7 @@ const Explore = () => {
           </View>
         </View>
         <Text style={[styles.greet, {color: colors.text}]}>
-          {Greeting}, Bhanupratap !😄
+          {Greeting}, Pal !😄
         </Text>
         <CryptoSection />
         <QuoteSection />
