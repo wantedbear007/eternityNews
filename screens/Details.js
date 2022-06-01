@@ -17,6 +17,7 @@ const Details = ({route, navigation}) => {
   // const colors = Theme();
   const item = route.params.data;
   const colors = route.params.colors;
+  // console.log(colors)
 
   // ShareFunction
   const onShare = () => {

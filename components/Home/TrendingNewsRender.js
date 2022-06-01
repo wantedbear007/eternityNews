@@ -1,13 +1,12 @@
 import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import React, {memo} from 'react';
-import Theme from '../../assets/UI/Theme';
 
 const TrendingNewsRender = ({colors, item, navigation}) => {
   // const colors = Theme();
 
   // Navigation Function
   const NavigateDetailsPage = () => {
-    navigation.navigate('Details', {data: item});
+    navigation.navigate('Details', {data: item, colors: colors});
   };
   return (
     <TouchableOpacity
