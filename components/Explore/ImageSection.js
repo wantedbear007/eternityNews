@@ -16,7 +16,7 @@ const ImageSection = ({colors}) => {
 
 
     const lol = new Date()
-    const hour = lol.getHours()
+    // const hour = lol.getHours()
 
   return (
     <View style={styles.parent}>

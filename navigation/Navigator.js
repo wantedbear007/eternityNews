@@ -25,15 +25,17 @@ const BottomNav = () => {
       activeColor={colors.accent}
       shifting={true}
       barStyle={{
-        backgroundColor: colors.cardBackground,
-        position: 'absolute',
-        bottom: 7,
-        left: 10,
-        right: 10,
-        paddingHorizontal: 15,
-        paddingVertical: 4,
-        marginHorizontal: 10,
-        borderRadius: 20,
+        backgroundColor: colors.background,
+        // backgroundColor: colors.cardBackground,
+        // position: 'absolute',
+        // bottom: 7,
+        // left: 10,
+        // right: 10,
+        // margin: 0,
+        // paddingHorizontal: 15,
+        // paddingVertical: 4,
+        // marginHorizontal: 10,
+        // borderRadius: 20,
         elevation: 20,
       }}>
       <Tab.Screen
@@ -42,7 +44,7 @@ const BottomNav = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="home" color={color} size={26} />
+            <MaterialIcons name="home" color={color} size={23} />
           ),
         }}
       />
@@ -52,7 +54,7 @@ const BottomNav = () => {
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="explore" color={color} size={26} />
+            <MaterialIcons name="explore" color={color} size={23} />
           ),
         }}
       />
@@ -61,7 +63,7 @@ const BottomNav = () => {
         component={About}
         options={{
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="lightbulb" color={color} size={26} />
+            <MaterialIcons name="lightbulb" color={color} size={23} />
           ),
         }}
       />

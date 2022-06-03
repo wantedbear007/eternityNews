@@ -1,5 +1,3 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
 
 const Greetings = () => {
   const hour = new Date().getHours();

@@ -28,7 +28,6 @@ const DailyRead = ({navigation, colors}) => {
       });
   }, [newsQuantity]);
 
-
   const renderItems = ({item, nav}) =>
     loading ? (
       <ActivityIndicator size="large" color={colors.text} />
@@ -64,7 +63,9 @@ const DailyRead = ({navigation, colors}) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItems}
         onEndReached={infiniteScrolling}
-        ListHeaderComponent={<TrendingNews colors={colors} navigation={navigation} />}
+        ListHeaderComponent={
+          <TrendingNews colors={colors} navigation={navigation} />
+        }
         ListFooterComponent={!newsEnd && renderLoader}
         legacyImplementation={false}
         // pagingEnabled={true}
@@ -79,29 +80,6 @@ const DailyRead = ({navigation, colors}) => {
 export default DailyRead;
 
 const styles = StyleSheet.create({
-  sourceText: {
-    alignSelf: 'flex-end',
-  },
-
-  compactCard: {
-    paddingHorizontal: 19,
-    paddingVertical: 20,
-    borderBottomLeftRadius: 30,
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    resizeMode: 'contain',
-    marginBottom: 10,
-  },
-  compactImage: {
-    borderRadius: 100,
-    width: 70,
-    height: 70,
-  },
-
   compactContainer: {
     marginHorizontal: 10,
   },
