@@ -9,6 +9,7 @@ import {
 import axios from 'axios';
 import DailyReadRender from './DailyReadRender';
 import TrendingNews from './TrendingNews';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DailyRead = ({navigation, colors}) => {
   const [newsQuantity, setNewsQuantity] = useState(15);
@@ -16,16 +17,56 @@ const DailyRead = ({navigation, colors}) => {
   const [newsEnd, setNewsEnd] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const storeData = async val => {
+    try {
+      const jsonVal = JSON.stringify(val);
+      await AsyncStorage.setItem('newsData', jsonVal);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // console.log(loading + " before")
+  // const getData = async () => {
+  //   try {
+  //     let savedNews = await AsyncStorage.getItem('newsData');
+  //     savedNews = await JSON.parse(savedNews);
+  //     if (loading == true) {
+  //       console.log('loa')
+  //       setNews(loly);
+  //       return true
+        
+  //       // setLoading(false)
+  //     } else {return false}
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // console.log(loading + " after")
   //FetchingData
   useEffect(() => {
-    axios
-      .get(
-        `https://inshortsv2.vercel.app/news?type=all_news&limit=${newsQuantity}`,
-      )
-      .then(response => {
-        setNews(response.data.articles);
-        setLoading(false);
-      });
+    // const  dhol  = async () => {
+
+    //   const lolo = await getData();
+    //   if (lolo == true) {
+    //     setLoading(false)
+    //   }
+    // }
+    // dhol()
+    
+    try {
+      axios
+        .get(
+          `https://inshortsv2.vercel.app/news?type=all_news&limit=${newsQuantity}`,
+        )
+        .then(response => {
+          setNews(response.data.articles);
+          storeData(response.data.articles);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }, [newsQuantity]);
 
   const renderItems = ({item, nav}) =>

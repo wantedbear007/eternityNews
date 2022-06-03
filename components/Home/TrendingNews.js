@@ -12,14 +12,16 @@ const TrendingNews = ({colors, navigation}) => {
   const [loading, setLoading] = useState(true);
   //Fetching News
   useEffect(() => {
-    axios
-      .get(
-        `https://inshortsv2.vercel.app/news?type=top_stories&limit=${newsQuantity}`,
-      )
-      .then(response => {
-        setNews(response.data.articles);
-        setLoading(false);
-      });
+    try {
+      axios
+        .get(
+          `https://inshortsv2.vercel.app/news?type=top_stories&limit=${newsQuantity}`,
+        )
+        .then(response => {
+          setNews(response.data.articles);
+          setLoading(false);
+        });
+    } catch (e) {}
   }, [newsQuantity]);
 
   // FlatLost Render
