@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Share} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ShareButton from '../../assets/Icons/shareButton.svg'
+import NextButton from '../../assets/Icons/next-svgrepo-com.svg'
 
 const QuoteSection = ({colors}) => {
   // const colors = Theme();
@@ -48,8 +50,10 @@ const QuoteSection = ({colors}) => {
         </Text>
       </View>
       <View style={styles.iconContainer}>
-        <CustomBtn icon="share" onPress={ShareButtonHandler} />
-        <CustomBtn icon="chevron-right" onPress={RandomQuote} />
+        <ShareButton onPress={ShareButtonHandler} />
+        <NextButton />
+        {/* <CustomBtn icon="share" onPress={ShareButtonHandler} /> */}
+        {/* <CustomBtn icon="chevron-right" onPress={RandomQuote} /> */}
       </View>
     </View>
   );

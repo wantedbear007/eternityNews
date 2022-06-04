@@ -1,17 +1,26 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Share} from 'react-native';
 
 const JokeSection = ({colors}) => {
   const [jokes, setJokes] = useState([]);
   const JokeHandler = () => {
-    fetch('https://v2.jokeapi.dev/joke/Any?type=single')
-      .then(response => response.json())
-      .then(data => setJokes(data));
+    try {
+      fetch('https://v2.jokeapi.dev/joke/Any?type=single')
+        .then(response => response.json())
+        .then(data => setJokes(data));
+    } catch (err) {}
   };
 
   useEffect(() => {
     JokeHandler();
   }, []);
+
+  const ShareButtonHandler = () => {
+    Share.share({
+      message: quote + ' -' + author,
+    });
+  };
+
 
   return (
     <View
@@ -25,6 +34,7 @@ const JokeSection = ({colors}) => {
         <Text style={[styles.category, {color: colors.disabledText}]}>
           Category: {jokes.category}
         </Text>
+        
       </View>
     </View>
   );

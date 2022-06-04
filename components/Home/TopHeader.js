@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Context from '../../context/Context';
+import MoonIcon from '../../assets/Icons/moonIcon.svg';
+import SunIcon from '../../assets/Icons/sunButton.svg';
 
 const TopHeader = ({colors}) => {
   const {darkTheme, themeHandler} = useContext(Context);
@@ -18,12 +19,17 @@ const TopHeader = ({colors}) => {
       </View>
 
       <TouchableOpacity onPress={themeButtonHandler}>
-        <Ionicons
+        {darkTheme ? (
+          <SunIcon width={23} fill={colors.text} />
+        ) : (
+          <MoonIcon width={23} fill={colors.text} />
+        )}
+        {/* <Ionicons
           name={!darkTheme ? 'moon' : 'sunny'}
           size={24}
           color={colors.text}
           style={{marginRight: 10}}
-        />
+        /> */}
       </TouchableOpacity>
     </View>
   );
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 30,
-    fontWeight: '800'
+    fontWeight: '800',
   },
   slogan: {
     marginBottom: 7,

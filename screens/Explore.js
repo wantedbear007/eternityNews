@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Card from '../components/UI/Card';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
 import CryptoSection from '../components/Explore/CryptoSection';
 import QuoteSection from '../components/Explore/QuoteSection';
@@ -12,6 +12,7 @@ import {Divider} from 'react-native-elements/dist/divider/Divider';
 import JokeSection from '../components/Explore/JokeSection';
 import NasaSection from '../components/Explore/NasaSection';
 import SkeletonExplore from '../components/Explore/SkeletonExplore';
+import CompassIcon from '../assets/Icons/compassIco.svg'
 
 const Explore = () => {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ const Explore = () => {
 
     window.setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, 3000);
   }, []);
 
   const SectionDivider = () => (
@@ -33,7 +34,7 @@ const Explore = () => {
   const RenderContent = () => {
     console.log('loaded')
     return (
-      <View style={{}}>
+      <>
         <CryptoSection />
         <QuoteSection colors={colors} />
         <ImageSection colors={colors} />
@@ -45,7 +46,7 @@ const Explore = () => {
         {/* <WordSection /> */}
         {/* <SectionDivider /> */}
         <NasaSection colors={colors} />
-      </View>
+      </>
     );
   };
   return (
@@ -53,7 +54,8 @@ const Explore = () => {
       <ScrollView>
         <View style={styles.parentContainer}>
           <View style={styles.topContainer}>
-            <MaterialIcons name="explore" size={30} color={colors.text} />
+            {/* <MaterialIcons name="explore" size={30} color={colors.text} /> */}
+            <CompassIcon fill={colors.text} width={32} />
             <Text style={[styles.headingText, {color: colors.text}]}>
               Explore
             </Text>
