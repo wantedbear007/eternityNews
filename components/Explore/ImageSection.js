@@ -9,14 +9,12 @@ const ImageSection = ({colors}) => {
   useEffect(() => {
     let pageNumber = Math.floor(Math.random() * 200);
     const url = 'https://picsum.photos/v2/list?page=' + pageNumber + '&limit=5';
-    fetch(url)
-      .then(response => response.json())
-      .then(data => setImageData(data));
+    try {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => setImageData(data))
+    } catch (err) {}
   }, []);
-
-
-    const lol = new Date()
-    // const hour = lol.getHours()
 
   return (
     <View style={styles.parent}>

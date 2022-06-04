@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Card from '../components/UI/Card';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -10,17 +10,44 @@ import Greetings from '../components/Explore/Greetings';
 import Affirmation from '../components/Explore/Affirmation';
 import {Divider} from 'react-native-elements/dist/divider/Divider';
 import JokeSection from '../components/Explore/JokeSection';
-import WordSection from '../components/Explore/WordSection';
 import NasaSection from '../components/Explore/NasaSection';
+import SkeletonExplore from '../components/Explore/SkeletonExplore';
 
 const Explore = () => {
+  const [loading, setLoading] = useState(true);
   const colors = Theme();
   const Greeting = Greetings();
+
+  useEffect(() => {
+    RenderContent();
+
+    window.setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+  }, []);
 
   const SectionDivider = () => (
     <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
   );
 
+  const RenderContent = () => {
+    console.log('loaded')
+    return (
+      <View style={{}}>
+        <CryptoSection />
+        <QuoteSection colors={colors} />
+        <ImageSection colors={colors} />
+        <SectionDivider />
+        <Affirmation colors={colors} />
+        <SectionDivider />
+        <JokeSection colors={colors} />
+        <SectionDivider />
+        {/* <WordSection /> */}
+        {/* <SectionDivider /> */}
+        <NasaSection colors={colors} />
+      </View>
+    );
+  };
   return (
     <Card>
       <ScrollView>
@@ -32,20 +59,8 @@ const Explore = () => {
             </Text>
           </View>
         </View>
-        <Text style={[styles.greet, {color: colors.text}]}>
-          {Greeting} !
-        </Text>
-        <CryptoSection />
-        <QuoteSection colors={colors} />
-        <ImageSection colors={colors} />
-        <SectionDivider />
-        <Affirmation colors={colors}  />
-        <SectionDivider  />
-        <JokeSection colors={colors}  />
-        <SectionDivider />
-        {/* <WordSection /> */}
-        {/* <SectionDivider /> */}
-        <NasaSection colors={colors}  />
+        <Text style={[styles.greet, {color: colors.text}]}>{Greeting} !</Text>
+        {loading ? <SkeletonExplore /> : <RenderContent />}
       </ScrollView>
     </Card>
   );
