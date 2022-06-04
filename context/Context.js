@@ -11,7 +11,7 @@ export function ContextContainer({children}) {
     const getData = async () => {
       try {
         const darkMode = await AsyncStorage.getItem('theme');
-        if (darkMode == 'true' || systemTheme === "dark") {
+        if (darkMode == 'true') {
           setDarkTheme(true);
         }
       } catch (e) {

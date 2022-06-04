@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import TrendingNewsRender from './TrendingNewsRender';
 import {ActivityIndicator} from 'react-native-paper';
+import SkeletonHome from './SkeletonHome';
 
 const TrendingNews = ({colors, navigation}) => {
   // const colors = Theme();
@@ -77,7 +78,7 @@ const TrendingNews = ({colors, navigation}) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItems}
         onEndReached={infiniteScrolling}
-        ListFooterComponent={!newsEnd && renderLoader}
+        ListFooterComponent={!newsEnd && <SkeletonHome />}
         legacyImplementation={false}
         // pagingEnabled={true}
         maxToRenderPerBatch={5}

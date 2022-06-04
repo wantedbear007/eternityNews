@@ -10,7 +10,9 @@ const Theme = () => {
     text: darkTheme ? '#FFFFFF' : '#000000',
     disabledText: darkTheme ? '#A7A7A7' : '#6B5E5E',
     accent: darkTheme ? '#7928CA' : '#D00000',
+    skeleton: darkTheme ? "#1B1B1E" : "#F1F1F1",
     darkOn: darkTheme ? true : false,
+    skeletonLoading: darkTheme ? "#73777B" : "#DDDDDD"
   };
 
   return colorsScheme;

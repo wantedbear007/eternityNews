@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View , Image} from 'react-native';
 import React, {memo} from 'react';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const DailyReadRender = ({item, navigation, colors}) => {
     // const colors= Theme()

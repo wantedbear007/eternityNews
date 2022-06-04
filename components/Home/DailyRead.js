@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  ToastAndroid,
-  ActivityIndicator,
-} from 'react-native';
+import {View, FlatList, StyleSheet, ToastAndroid} from 'react-native';
 import axios from 'axios';
 import DailyReadRender from './DailyReadRender';
 import TrendingNews from './TrendingNews';
 import AsyncStorage from '@react-native-community/async-storage';
+import SkeletonHome from './SkeletonHome';
 
 const DailyRead = ({navigation, colors}) => {
   const [newsQuantity, setNewsQuantity] = useState(15);
@@ -25,35 +20,7 @@ const DailyRead = ({navigation, colors}) => {
       console.log(e);
     }
   };
-  // console.log(loading + " before")
-  // const getData = async () => {
-  //   try {
-  //     let savedNews = await AsyncStorage.getItem('newsData');
-  //     savedNews = await JSON.parse(savedNews);
-  //     if (loading == true) {
-  //       console.log('loa')
-  //       setNews(loly);
-  //       return true
-        
-  //       // setLoading(false)
-  //     } else {return false}
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // console.log(loading + " after")
-  //FetchingData
   useEffect(() => {
-    // const  dhol  = async () => {
-
-    //   const lolo = await getData();
-    //   if (lolo == true) {
-    //     setLoading(false)
-    //   }
-    // }
-    // dhol()
-    
     try {
       axios
         .get(
@@ -69,21 +36,22 @@ const DailyRead = ({navigation, colors}) => {
     }
   }, [newsQuantity]);
 
-  const renderItems = ({item, nav}) =>
-    loading ? (
-      <ActivityIndicator size="large" color={colors.text} />
-    ) : (
-      <DailyReadRender colors={colors} item={item} navigation={navigation} />
-    );
+  const renderItems = ({item, nav}) => {
+    if (loading) {
+      return <SkeletonHome />;
+    } else {
+      return (
+        <DailyReadRender colors={colors} item={item} navigation={navigation} />
+      );
+    }
+  };
+  // loading ? (
+  //   <DailyReadSkeleton />
+  // ) : (
+  //   <DailyReadRender colors={colors} item={item} navigation={navigation} />
+  // );
 
   //   Loader
-  const renderLoader = () => (
-    <ActivityIndicator
-      size={40}
-      color={colors.text}
-      style={{marginBottom: 160}}
-    />
-  );
 
   // Infinite Scrolling
   const infiniteScrolling = () => {
@@ -107,7 +75,7 @@ const DailyRead = ({navigation, colors}) => {
         ListHeaderComponent={
           <TrendingNews colors={colors} navigation={navigation} />
         }
-        ListFooterComponent={!newsEnd && renderLoader}
+        ListFooterComponent={!newsEnd && <SkeletonHome />}
         legacyImplementation={false}
         // pagingEnabled={true}
         maxToRenderPerBatch={5}
