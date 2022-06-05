@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 
-const Affirmation = ({colors}) => {
-  const [affirmation, setAffirmation] = useState();
+const Affirmation = ({colors, affirmation}) => {
+  // const [affirmation, setAffirmation] = useState();
 
-  useEffect(() => {
-    try {
-      fetch('https://www.affirmations.dev/')
-        .then(response => response.json())
-        .then(data => setAffirmation(data.affirmation));
-    } catch (error) {}
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     fetch('https://www.affirmations.dev/')
+  //       .then(response => response.json())
+  //       .then(data => setAffirmation(data.affirmation));
+  //   } catch (error) {}
+  // }, []);
 
   return (
     <>
@@ -21,8 +21,9 @@ const Affirmation = ({colors}) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 26,
-    fontWeight: '500',
+    fontSize: 21,
+    // fontWeight: '500',
+    letterSpacing: 1.2,
     textAlign: 'center',
     marginVertical: 15,
     marginHorizontal: 10,

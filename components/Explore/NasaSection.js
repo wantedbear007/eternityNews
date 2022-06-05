@@ -6,19 +6,36 @@ import {
   StyleSheet,
   TouchableOpacity,
   Linking,
+  Share,
 } from 'react-native';
+import IconRender from '../UI/IconRender';
+import Icons from '../../assets/UI/Icons';
 
-// https://api.nasa.gov/planetary/apod?api_key=0XVfgvwJDjzYEUxQPrsFA0UGtcR6YWA96MHbk6Im
+const NasaSection = ({colors, nasaData}) => {
+  const {shareButton} = Icons();
+  // Destructure incoming nasaData
 
-const NasaSection = ({colors}) => {
+  const ShareButtonHandler = () => {
+    Share.share({
+      message:
+        'Nasa astronomy picture of the day: ' +
+        ' https://apod.nasa.gov/apod/astropix.html',
+    });
+  };
   // const colors = Theme();
-  const [nasaData, setNasaData] = useState([]);
+  // const [nasaData, setNasaData] = useState([]);
 
-  useEffect(() => {
-    fetch(
-      'https://api.nasa.gov/planetary/apod?api_key=0XVfgvwJDjzYEUxQPrsFA0UGtcR6YWA96MHbk6Im',
-    ).then(response => response.json().then(response => setNasaData(response)));
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     fetch(
+  //       'https://api.nasa.gov/planetary/apod?api_key=0XVfgvwJDjzYEUxQPrsFA0UGtcR6YWA96MHbk6Im',
+  //     ).then(response =>
+  //       response.json().then(response => setNasaData(response)),
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
 
   const sourceHandler = () => {
     Linking.openURL('https://apod.nasa.gov/apod/astropix.html');
@@ -26,9 +43,6 @@ const NasaSection = ({colors}) => {
 
   return (
     <>
-      <Text style={[styles.heading, {color: colors.text}]}>
-        NASA Astronomy Picture of the Day.
-      </Text>
       <View
         style={[
           styles.parentContainer,
@@ -51,10 +65,12 @@ const NasaSection = ({colors}) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <Text style={[styles.date, {color: colors.disabledText}]}>
-          Date: {nasaData.date}
-        </Text>
+        <View style={styles.footer}>
+          <Text style={[styles.date, {color: colors.disabledText}]}>
+            Date: {nasaData.date}
+          </Text>
+          <IconRender onPress={ShareButtonHandler} icon={shareButton} />
+        </View>
       </View>
     </>
   );
@@ -63,36 +79,40 @@ const NasaSection = ({colors}) => {
 const styles = StyleSheet.create({
   parentContainer: {
     marginHorizontal: 15,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     paddingVertical: 20,
     borderRadius: 20,
-    marginBottom: 100,
+    marginBottom: 30,
+    marginTop: 10,
   },
   heading: {
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 30,
     marginBottom: 15,
+    marginHorizontal: 15,
   },
   date: {
     fontSize: 10,
     textAlign: 'center',
     fontWeight: '500',
-    marginTop: 10,
+    marginVertical: 10,
   },
   image: {
     width: '100%',
     height: 400,
     resizeMode: 'contain',
-    borderRadius: 10,
+    borderRadius: 1,
     marginVertical: 10,
   },
   title: {
     fontSize: 22,
     fontWeight: '600',
+    marginHorizontal: 15,
   },
   description: {
     fontSize: 15,
+    marginHorizontal: 15,
   },
   creditsContainer: {
     flexDirection: 'row',
@@ -104,6 +124,9 @@ const styles = StyleSheet.create({
   source: {
     marginTop: 10,
     fontWeight: '600',
+  },
+  footer: {
+    alignItems: 'center',
   },
 });
 

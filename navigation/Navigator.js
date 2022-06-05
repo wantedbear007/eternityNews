@@ -21,7 +21,7 @@ const BottomNav = () => {
   const colors = Theme();
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Explore"
       activeColor={colors.accent}
       shifting={true}
       barStyle={{

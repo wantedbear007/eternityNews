@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Context from '../../context/Context';
 import MoonIcon from '../../assets/Icons/moonIcon.svg';
 import SunIcon from '../../assets/Icons/sunButton.svg';
+import Icons from '../../assets/UI/Icons';
 
 const TopHeader = ({colors}) => {
   const {darkTheme, themeHandler} = useContext(Context);
@@ -12,6 +13,9 @@ const TopHeader = ({colors}) => {
   return (
     <View style={styles.parentContainer}>
       <View style={styles.textContainer}>
+      
+      {/* <Delete icon="icons.compassIcon">"compassIcon"</Delete> */}
+        {/* <Icons>"Hello"</Icons> */}
         <Text style={[styles.title, {color: colors.text}]}>Discover</Text>
         <Text style={[styles.slogan, {color: colors.accent}]}>
           Read the World Today!

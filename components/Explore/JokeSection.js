@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Share} from 'react-native';
+import IconRender from '../UI/IconRender';
+import Icons from '../../assets/UI/Icons';
 
 const JokeSection = ({colors}) => {
+  const {shareButton, nextButton} = Icons();
+
   const [jokes, setJokes] = useState([]);
   const JokeHandler = () => {
     try {
@@ -17,10 +21,9 @@ const JokeSection = ({colors}) => {
 
   const ShareButtonHandler = () => {
     Share.share({
-      message: quote + ' -' + author,
+      message: jokes.joke,
     });
   };
-
 
   return (
     <View
@@ -34,7 +37,11 @@ const JokeSection = ({colors}) => {
         <Text style={[styles.category, {color: colors.disabledText}]}>
           Category: {jokes.category}
         </Text>
-        
+        {/* <View style={styles.iconContainer}> */}
+
+        <IconRender icon={shareButton} onPress={ShareButtonHandler} />
+        <IconRender onPress={JokeHandler} icon={nextButton} />
+        {/* </View> */}
       </View>
     </View>
   );
@@ -58,7 +65,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
   },
+  iconContainer: {
+    alignItems: 'center',
+    flexDirection: 'column'
+  }
 });
 
 export default JokeSection;

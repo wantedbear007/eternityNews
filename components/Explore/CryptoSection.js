@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import CryptoPrices from '../../services/CryptoPrices';
+// import CryptoPrices from '../../services/CryptoPrices';
 import colors from '../../assets/UI/colors';
 
-const CryptoSection = () => {
-  const [price, setPrice] = useState([]);
+const CryptoSection = ({cryptoPrice}) => {
+  // const [price, setPrice] = useState([]);
 
-  useEffect(() => {
-    const fetchPrices = async () => {
-      const prices = await CryptoPrices();
-      setPrice(prices);
-    };
-    fetchPrices();
-  }, []);
+  // useEffect(() => {
+  //   const fetchPrices = async () => {
+  //     const prices = await CryptoPrices();
+  //     setPrice(prices);
+  //   };
+  //   fetchPrices();
+  // }, []);
 
   return (
     <View style={styles.parentContainer}>
-      {price.map((item, index) => {
+      {cryptoPrice.map((item, index) => {
         const lol = Number(item.price);
         return (
           <View

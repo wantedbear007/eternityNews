@@ -10,13 +10,17 @@ import Theme from '../assets/UI/Theme';
 import ShareButton from '../assets/Icons/shareButton.svg'
 import CompassIcon from '../assets/Icons/compass-svgrepo-com.svg'
 // import { shareButton } from '../assets/UI/Icons';
+import IconRender from '../components/UI/IconRender';
+// import Icons from '../assets/UI/Icons';
+// import Delete from '../components/Explore/Delete';
 
 const Home = ({navigation}) => {
-
+ 
   const colors = Theme();
   return (
     <Card>
       <TopHeader colors={colors} />
+      {/* <IconRender>{nextButton}</IconRender> */}
       {/* <ShareButton fill={colors.disabledText} /> */}
       {/* <CompassIcon fill={colors.disabledText} /> */}
       {/* <SvgXml xml={xml} width={'100%'} height={'100%'} /> */}
