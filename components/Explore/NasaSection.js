@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-  },
+  }, 
+  
 });
 
 export default NasaSection;

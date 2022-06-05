@@ -6,10 +6,12 @@ import {View, Text, StyleSheet, Share} from 'react-native';
 // import Svg, {Path} from 'react-native-svg';
 import Icons from '../../assets/UI/Icons';
 import IconRender from '../UI/IconRender';
+import Clipboard from '@react-native-clipboard/clipboard';
+
 
 const QuoteSection = ({colors}) => {
   // const colors = Theme();
-  const {shareButton, nextButton} = Icons();
+  const {shareButton, nextButton, copyButton} = Icons();
   // const {qte, author} = quote
 
   // const [quote, setQuote] = useState('');
@@ -41,6 +43,10 @@ const QuoteSection = ({colors}) => {
   //   </TouchableOpacity>
   // );
 
+  const copyToClipboard = () => {
+    Clipboard.setString(quote.qte + ' -' + quote.author);
+  };
+
   const ShareButtonHandler = () => {
     Share.share({
       message: quote.qte + ' -' + quote.author,
@@ -63,6 +69,7 @@ const QuoteSection = ({colors}) => {
       </View>
       <View style={styles.iconContainer}>
         <IconRender onPress={ShareButtonHandler} icon={shareButton} />
+        <IconRender onPress={copyToClipboard} icon={copyButton} />
         <IconRender onPress={RandomQuote} icon={nextButton} />
       </View>
     </View>

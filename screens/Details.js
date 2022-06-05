@@ -9,37 +9,49 @@ import {
   Linking,
   Share,
 } from 'react-native';
-import TopNav from '../components/UI/TopNav';
 import Card from '../components/UI/Card';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconRender from '../components/UI/IconRender';
+import Icons from '../assets/UI/Icons';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 const Details = ({route, navigation}) => {
+  const {bigShareButton, backButton, copyButton} = Icons();
   // const colors = Theme();
   const item = route.params.data;
   const colors = route.params.colors;
-  // console.log(colors)
 
   // ShareFunction
   const onShare = () => {
     Share.share({
-      message: item.title + ' Read more..' + item.source_url,
+      message: item.title + ' (' + item.description + ')',
     });
+  };
+
+  // Copy to clipboard handler
+  const copyToClipboard = () => {
+    Clipboard.setString(item.title + ' (' + item.description + ')');
   };
 
   return (
     <Card>
-      <TopNav navigation={navigation} colors={colors} />
       <ScrollView>
         <View style={styles.parentContainer}>
-          <Text style={[styles.titleText, {color: colors.text}]}>
-            {item.title}
-          </Text>
-          <Image style={styles.imageContainer} source={{uri: item.image_url}} />
+          <View style={styles.topNavigation}>
+            <Text style={[styles.titleText, {color: colors.text}]}>
+              {item.title}
+            </Text>
+          </View>
+
           <View
             style={[
               styles.cardContainer,
               {backgroundColor: colors.cardBackground},
             ]}>
+            <Image
+              style={styles.imageContainer}
+              source={{uri: item.image_url}}
+            />
             <View style={styles.childContainer}>
               <Text style={[styles.authorName, {color: colors.disabledText}]}>
                 {'Author: '}
@@ -56,45 +68,62 @@ const Details = ({route, navigation}) => {
               onPress={() => {
                 Linking.openURL(item.source_url);
               }}>
-              <Text style={{color: colors.accent}}>Read source</Text>
+              <Text style={[styles.source, {color: colors.accent}]}>
+                Read source
+              </Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={onShare}>
-            <FontAwesome name="share" size={30} color={colors.disabledText} />
-          </TouchableOpacity>
         </View>
       </ScrollView>
+      <View style={styles.bottomControls}>
+        <IconRender
+          onPress={() => navigation.navigate('BottomNav')}
+          icon={backButton}
+        />
+        <IconRender onPress={copyToClipboard} icon={copyButton} />
+        <IconRender onPress={onShare} icon={bigShareButton} />
+      </View>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
   parentContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  topNavigation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 40,
+  },
   titleText: {
-    fontSize: 28,
+    fontSize: 27,
     fontWeight: '600',
+    marginBottom: 20,
+    // marginLeft: 8,
   },
   imageContainer: {
-    marginVertical: 10,
+    // marginVertical: 10,
     width: '100%',
     height: 250,
     resizeMode: 'cover',
-    borderRadius: 20,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   cardContainer: {
-    padding: 20,
-    borderRadius: 20,
-    marginVertical: 10,
+    width: '100%',
+    paddingBottom: 30,
+    borderRadius: 15,
   },
   childContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginHorizontal: 15,
+    marginVertical: 20,
   },
   authorName: {
     fontWeight: '600',
@@ -104,8 +133,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   description: {
-    fontSize: 16,
+    fontSize: 17,
     marginBottom: 10,
+    marginHorizontal: 15,
+  },
+  bottomControls: {
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  source: {
+    marginLeft: 15,
   },
 });
 

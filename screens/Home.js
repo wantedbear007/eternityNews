@@ -13,13 +13,16 @@ import CompassIcon from '../assets/Icons/compass-svgrepo-com.svg'
 import IconRender from '../components/UI/IconRender';
 // import Icons from '../assets/UI/Icons';
 // import Delete from '../components/Explore/Delete';
+import Icons from '../assets/UI/Icons';
 
 const Home = ({navigation}) => {
  
   const colors = Theme();
+  const icons = Icons() 
+  
   return (
     <Card>
-      <TopHeader colors={colors} />
+      <TopHeader colors={colors}  icons={icons} />
       {/* <IconRender>{nextButton}</IconRender> */}
       {/* <ShareButton fill={colors.disabledText} /> */}
       {/* <CompassIcon fill={colors.disabledText} /> */}

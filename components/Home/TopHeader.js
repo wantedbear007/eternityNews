@@ -1,32 +1,27 @@
 import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Context from '../../context/Context';
-import MoonIcon from '../../assets/Icons/moonIcon.svg';
-import SunIcon from '../../assets/Icons/sunButton.svg';
-import Icons from '../../assets/UI/Icons';
+import IconRender from '../UI/IconRender';
 
-const TopHeader = ({colors}) => {
+const TopHeader = ({colors, icons}) => {
   const {darkTheme, themeHandler} = useContext(Context);
+  const {moonIcon, sunIcon} = icons;
 
   const themeButtonHandler = () => themeHandler(true);
 
   return (
     <View style={styles.parentContainer}>
       <View style={styles.textContainer}>
-      
-      {/* <Delete icon="icons.compassIcon">"compassIcon"</Delete> */}
-        {/* <Icons>"Hello"</Icons> */}
         <Text style={[styles.title, {color: colors.text}]}>Discover</Text>
         <Text style={[styles.slogan, {color: colors.accent}]}>
           Read the World Today!
         </Text>
       </View>
-
       <TouchableOpacity onPress={themeButtonHandler}>
         {darkTheme ? (
-          <SunIcon width={23} fill={colors.text} />
+          <IconRender icon={sunIcon} onPress={themeButtonHandler} />
         ) : (
-          <MoonIcon width={23} fill={colors.text} />
+          <IconRender icon={moonIcon} onPress={themeButtonHandler} />
         )}
         {/* <Ionicons
           name={!darkTheme ? 'moon' : 'sunny'}
