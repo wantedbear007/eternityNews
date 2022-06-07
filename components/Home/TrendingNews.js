@@ -25,6 +25,7 @@ const TrendingNews = ({colors, navigation}) => {
     try {
       const fetchedNewsData = await AsyncStorage.getItem('trendingNews');
       const fetchedJSON = JSON.parse(fetchedNewsData);
+      setLoading(false);
       setNews(fetchedJSON);
     } catch (e) {
       console.log(e);

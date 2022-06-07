@@ -26,6 +26,7 @@ const DailyRead = ({navigation, colors}) => {
       const fetchedNewsData = await AsyncStorage.getItem('newsData');
       const fetchedJSON = JSON.parse(fetchedNewsData);
       setNews(fetchedJSON);
+      setLoading(false)
     } catch (e) {
       console.log(e);
     }
