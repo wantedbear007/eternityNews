@@ -14,36 +14,23 @@ import SkeletonExplore from '../components/Explore/SkeletonExplore';
 import IconRender from '../components/UI/IconRender';
 import Icons from '../assets/UI/Icons';
 
-const Explore = () => {
-  const [loading, setLoading] = useState(true);
+const Explore = ({navigation}) => {
   const colors = Theme();
   const Greeting = Greetings();
-  const {compassIcon} = Icons();
+  const {compassIcon, infoIcon} = Icons();
 
-  // useEffect(() => {
-  //   window.setTimeout(() => {
-  //     setLoading(false);
-  //   }, 3000);
-  // }, []);
-
+  const [loading, setLoading] = useState(true);
   const [nasaData, setNasaData] = useState([]);
   const [cryptoPrice, setCryptoPrices] = useState([]);
   const [imageData, setImageData] = useState([]);
   const [affirmation, setAffirmation] = useState('');
+  const [quote, setQuote] = useState({});
+  const [jokes, setJokes] = useState([]);
 
   // Image API page Number
   let pageNumber = Math.floor(Math.random() * 200);
 
   useEffect(() => {
-    window.setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, [])
-
-  useEffect(() => {
-    // window.setTimeout(() => {
-    //   setLoading(false);
-    // }, 2000);
     // NASA REQUEST
     try {
       fetch(
@@ -60,14 +47,18 @@ const Explore = () => {
       fetch(url)
         .then(response => response.json())
         .then(data => setImageData(data));
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
 
     // AFFIRMATION REQUEST
     try {
       fetch('https://www.affirmations.dev/')
         .then(response => response.json())
         .then(data => setAffirmation(data.affirmation));
-    } catch (error) {}
+    } catch (error) {
+      console.log(err);
+    }
 
     // CRYPTO REQUEST
     try {
@@ -76,27 +67,70 @@ const Explore = () => {
       ).then(response =>
         response.json().then(response => setCryptoPrices(response)),
       );
-    } catch (error) {}
+    } catch (error) {
+      console.log(err);
+    }
+    GetQuotes();
+    GetJokes()
   }, []);
+
+  // QUOTE REQUEST
+  const GetQuotes = () => {
+    try {
+      fetch('https://api.quotable.io/random')
+        .then(response => response.json())
+        .then(data => {
+          setQuote({qte: data.content, author: data.author});
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // JOKES REQUEST
+  const GetJokes = () => {
+    try {
+      fetch('https://v2.jokeapi.dev/joke/Any?type=single')
+        .then(response => response.json())
+        .then(data => setJokes(data));
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (
+      imageData.length != 0 &&
+      nasaData &&
+      cryptoPrice &&
+      affirmation &&
+      jokes &&
+      quote
+    ) {
+      setLoading(false);
+    }
+  }, [imageData, nasaData, cryptoPrice, affirmation]);
 
   const SectionDivider = () => (
     <View style={[styles.divider, {backgroundColor: colors.text}]} />
   );
-
+  // NAVIGATION FUNCTION
+  const NavigateAboutPage = () => {
+    navigation.navigate('About');
+  };
   const RenderContent = () => {
     return (
       <>
         <CryptoSection cryptoPrice={cryptoPrice} />
-        <QuoteSection colors={colors} />
+        <QuoteSection colors={colors} quote={quote} getQuotes={GetQuotes} />
         <ImageSection colors={colors} imageData={imageData} />
         <SectionDivider />
         <Affirmation colors={colors} affirmation={affirmation} />
         <SectionDivider />
-        <JokeSection colors={colors} />
+        <JokeSection colors={colors} getJokes={GetJokes} jokes={jokes} />
         <NasaSection colors={colors} nasaData={nasaData} />
       </>
     );
   };
+
   return (
     <Card>
       <ScrollView>
@@ -107,6 +141,11 @@ const Explore = () => {
               Explore
             </Text>
           </View>
+          <IconRender
+            icon={infoIcon}
+            style={{marginRight: 10}}
+            onPress={NavigateAboutPage}
+          />
         </View>
         <Text style={[styles.greet, {color: colors.text}]}>{Greeting} !</Text>
         {loading ? <SkeletonExplore /> : <RenderContent />}
@@ -120,6 +159,9 @@ const styles = StyleSheet.create({
   parentContainer: {
     marginHorizontal: 10,
     marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   topContainer: {

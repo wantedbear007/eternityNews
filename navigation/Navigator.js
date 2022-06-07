@@ -1,43 +1,36 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 // Screens
 import Home from '../screens/Home';
 import About from '../screens/About';
 import Details from '../screens/Details';
 import Explore from '../screens/Explore';
+import Svg, {Path} from 'react-native-svg';
 
 // For app navigation
 const Stack = createNativeStackNavigator();
 
 // For bottom Navigation
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+// const Tab = createMaterialBottomTabNavigator();
 
 const BottomNav = () => {
   const colors = Theme();
+
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor={colors.accent}
-      shifting={true}
-      barStyle={{
-        backgroundColor: colors.background,
-        // backgroundColor: colors.cardBackground,
-        // position: 'absolute',
-        // bottom: 7,
-        // left: 10,
-        // right: 10,
-        // margin: 0,
-        // paddingHorizontal: 15,
-        // paddingVertical: 4,
-        // marginHorizontal: 10,
-        // borderRadius: 20,
-        elevation: 20,
+      tabBarLabel={{focused: false, color: 'red'}}
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.accent,
+        tabBarStyle: {backgroundColor: colors.background},
       }}>
       <Tab.Screen
         name="Home"
@@ -45,29 +38,52 @@ const BottomNav = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="home" color={color} size={23} />
+            <Svg
+              width={21}
+              height={21}
+              fill={color}
+              viewBox="0 0 330.242 330.242"
+              xmlSpace="preserve"
+              enableBackground="new 0 0 330.242 330.242">
+              <Path d="M324.442 129.811l-41.321-33.677V42.275c0-6.065-4.935-11-11-11h-26c-6.065 0-11 4.935-11 11v14.737l-55.213-44.999c-3.994-3.254-9.258-5.047-14.822-5.047-5.542 0-10.781 1.782-14.753 5.019L5.8 129.81c-6.567 5.351-6.173 10.012-5.354 12.314.817 2.297 3.448 6.151 11.884 6.151h19.791v154.947c0 11.058 8.972 20.053 20 20.053h62.5c10.935 0 19.5-8.809 19.5-20.053v-63.541c0-5.446 5.005-10.405 10.5-10.405h42c5.238 0 9.5 4.668 9.5 10.405v63.541c0 10.87 9.388 20.053 20.5 20.053h61.5c11.028 0 20-8.996 20-20.053V148.275h19.791c8.436 0 11.066-3.854 11.884-6.151.819-2.302 1.213-6.963-5.354-12.313z" />
+            </Svg>
           ),
         }}
       />
+
       <Tab.Screen
         name="Explore"
         component={Explore}
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="explore" color={color} size={23} />
+            <Svg width={27} height={27} viewBox="0 0 32 32">
+              <Path
+                d="M16 29c7.18 0 13-5.82 13-13S23.18 3 16 3 3 8.82 3 16s5.82 13 13 13zm0-1c6.627 0 12-5.373 12-12S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12zm0-1c6.075 0 11-4.925 11-11S22.075 5 16 5 5 9.925 5 16s4.925 11 11 11zm2.121-8.879c-1.767 1.768-9.192 4.95-9.192 4.95s3.182-7.425 4.95-9.192c1.767-1.768 9.192-4.95 9.192-4.95s-3.182 7.425-4.95 9.192zm-3.535-.707a2 2 0 102.828-2.828 2 2 0 00-2.828 2.828z"
+                fill={color}
+                stroke="none"
+                strokeWidth={1}
+                fillRule="evenodd"
+              />
+            </Svg>
           ),
         }}
       />
-      <Tab.Screen
+
+      {/* <Tab.Screen
         name="About"
         component={About}
         options={{
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="lightbulb" color={color} size={23} />
+            <Svg width="24px" height="24px" viewBox="0 0 24 24">
+              <Path
+                fill={color}
+                d="M9 20h6v2H9zm7.906-6.288C17.936 12.506 19 11.259 19 9c0-3.859-3.141-7-7-7S5 5.141 5 9c0 2.285 1.067 3.528 2.101 4.73.358.418.729.851 1.084 1.349.144.206.38.996.591 1.921h-.792v2h8.032v-2h-.79c.213-.927.45-1.719.593-1.925.352-.503.726-.94 1.087-1.363z"
+              />
+            </Svg>
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

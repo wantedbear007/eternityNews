@@ -25,7 +25,7 @@ const SkeletonExplore = () => {
         <View
           style={{
             width: ScreenDimensions.width / 2.3,
-            height: 90,
+            height: 70,
             borderRadius: 10,
             marginRight: 10
           }}
@@ -33,7 +33,7 @@ const SkeletonExplore = () => {
         <View
           style={{
             width: ScreenDimensions.width / 2.3,
-            height: 90,
+            height: 70,
             borderRadius: 10,
           }}
         />

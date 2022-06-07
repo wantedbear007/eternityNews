@@ -1,23 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Share} from 'react-native';
 import IconRender from '../UI/IconRender';
 import Icons from '../../assets/UI/Icons';
 
-const JokeSection = ({colors}) => {
+const JokeSection = ({colors, jokes, getJokes}) => {
   const {shareButton, nextButton} = Icons();
-
-  const [jokes, setJokes] = useState([]);
-  const JokeHandler = () => {
-    try {
-      fetch('https://v2.jokeapi.dev/joke/Any?type=single')
-        .then(response => response.json())
-        .then(data => setJokes(data));
-    } catch (err) {}
-  };
-
-  useEffect(() => {
-    JokeHandler();
-  }, []);
 
   const ShareButtonHandler = () => {
     Share.share({
@@ -37,11 +24,8 @@ const JokeSection = ({colors}) => {
         <Text style={[styles.category, {color: colors.disabledText}]}>
           Category: {jokes.category}
         </Text>
-        {/* <View style={styles.iconContainer}> */}
-
         <IconRender icon={shareButton} onPress={ShareButtonHandler} />
-        <IconRender onPress={JokeHandler} icon={nextButton} />
-        {/* </View> */}
+        <IconRender icon={nextButton} onPress={() => getJokes()} />
       </View>
     </View>
   );
@@ -65,12 +49,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   iconContainer: {
     alignItems: 'center',
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+  },
 });
 
 export default JokeSection;
