@@ -24,7 +24,7 @@ const Explore = ({navigation}) => {
   const [cryptoPrice, setCryptoPrices] = useState([]);
   const [imageData, setImageData] = useState([]);
   const [affirmation, setAffirmation] = useState('');
-  const [quote, setQuote] = useState({});
+  const [quote, setQuote] = useState({qte: "Loading...", author: ""});
   const [jokes, setJokes] = useState([]);
   const [userName, setUserName] = useState('😀');
 

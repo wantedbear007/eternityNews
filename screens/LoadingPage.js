@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ImageBackground} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
@@ -26,8 +26,8 @@ const LoadingPage = ({navigation}) => {
 
   return (
     <Card>
-      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
-        <Text style={{fontSize: 30, color: colors.text}}>Eternity News</Text>
+      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: colors.text}}>
+        <Text style={{fontSize: 30, color: colors.background}}>Eternity News</Text>
       </View>
     </Card>
   );
