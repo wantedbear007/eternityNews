@@ -20,7 +20,19 @@ const DailyRead = ({navigation, colors}) => {
       console.log(e);
     }
   };
+
+  const getStoredData = async () => {
+    try {
+      const fetchedNewsData = await AsyncStorage.getItem('newsData');
+      const fetchedJSON = JSON.parse(fetchedNewsData);
+      setNews(fetchedJSON);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
+    getStoredData();
     try {
       axios
         .get(
@@ -77,7 +89,6 @@ const DailyRead = ({navigation, colors}) => {
         }
         ListFooterComponent={!newsEnd && <SkeletonHome />}
         legacyImplementation={false}
-        // pagingEnabled={true}
         maxToRenderPerBatch={5}
         initialNumToRender={5}
         onEndReachedThreshold={0.5}

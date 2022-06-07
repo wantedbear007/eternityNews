@@ -2,8 +2,8 @@ import {StyleSheet, Text, View, FlatList, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import TrendingNewsRender from './TrendingNewsRender';
-import {ActivityIndicator} from 'react-native-paper';
 import SkeletonHome from './SkeletonHome';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const TrendingNews = ({colors, navigation}) => {
   // const colors = Theme();
@@ -11,8 +11,29 @@ const TrendingNews = ({colors, navigation}) => {
   const [news, setNews] = useState([]);
   const [newsQuantity, setNewsQuantity] = useState(10);
   const [loading, setLoading] = useState(true);
+
+  const storeData = async val => {
+    try {
+      const jsonVal = JSON.stringify(val);
+      await AsyncStorage.setItem('trendingNews', jsonVal);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getStoredData = async () => {
+    try {
+      const fetchedNewsData = await AsyncStorage.getItem('trendingNews');
+      const fetchedJSON = JSON.parse(fetchedNewsData);
+      setNews(fetchedJSON);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   //Fetching News
   useEffect(() => {
+    getStoredData();
     try {
       axios
         .get(
@@ -20,6 +41,7 @@ const TrendingNews = ({colors, navigation}) => {
         )
         .then(response => {
           setNews(response.data.articles);
+          storeData(response.data.articles);
           setLoading(false);
         });
     } catch (e) {}
@@ -28,23 +50,10 @@ const TrendingNews = ({colors, navigation}) => {
   // FlatLost Render
   const renderItems = ({item}) =>
     loading ? (
-      <ActivityIndicator size="large" color={colors.text} />
+      <SkeletonHome />
     ) : (
       <TrendingNewsRender colors={colors} item={item} navigation={navigation} />
     );
-
-  const renderLoader = () => (
-    <ActivityIndicator
-      size={40}
-      color={colors.text}
-      style={{
-        marginVertical: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      }}
-    />
-  );
 
   // Infinite Scrolling
   const infiniteScrolling = () => {
@@ -60,7 +69,6 @@ const TrendingNews = ({colors, navigation}) => {
     <View style={styles.trendingContainer}>
       <Text
         style={[
-          {},
           {
             color: colors.accent,
             textAlign: 'center',
@@ -80,7 +88,6 @@ const TrendingNews = ({colors, navigation}) => {
         onEndReached={infiniteScrolling}
         ListFooterComponent={!newsEnd && <SkeletonHome />}
         legacyImplementation={false}
-        // pagingEnabled={true}
         maxToRenderPerBatch={5}
         initialNumToRender={5}
         showsVerticalScrollIndicator={false}
