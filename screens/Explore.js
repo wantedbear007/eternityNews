@@ -8,13 +8,11 @@ import QuoteSection from '../components/Explore/QuoteSection';
 import ImageSection from '../components/Explore/ImageSection';
 import Greetings from '../components/Explore/Greetings';
 import Affirmation from '../components/Explore/Affirmation';
-import {Divider} from 'react-native-elements/dist/divider/Divider';
 import JokeSection from '../components/Explore/JokeSection';
 import NasaSection from '../components/Explore/NasaSection';
 import SkeletonExplore from '../components/Explore/SkeletonExplore';
 import IconRender from '../components/UI/IconRender';
 import Icons from '../assets/UI/Icons';
-import CryptoPrices from '../services/CryptoPrices';
 
 const Explore = () => {
   const [loading, setLoading] = useState(true);
@@ -22,11 +20,11 @@ const Explore = () => {
   const Greeting = Greetings();
   const {compassIcon} = Icons();
 
-  useEffect(() => {
-    window.setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   window.setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
+  // }, []);
 
   const [nasaData, setNasaData] = useState([]);
   const [cryptoPrice, setCryptoPrices] = useState([]);
@@ -37,6 +35,15 @@ const Explore = () => {
   let pageNumber = Math.floor(Math.random() * 200);
 
   useEffect(() => {
+    window.setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, [])
+
+  useEffect(() => {
+    // window.setTimeout(() => {
+    //   setLoading(false);
+    // }, 2000);
     // NASA REQUEST
     try {
       fetch(
@@ -63,15 +70,17 @@ const Explore = () => {
     } catch (error) {}
 
     // CRYPTO REQUEST
-    const fetchPrices = async () => {
-      const prices = await CryptoPrices();
-      setCryptoPrices(prices);
-    };
-    fetchPrices();
+    try {
+      fetch(
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=INR&order=market_cap_desc&per_page=2&page=1&sparkline=false&price_change_percentage=7d',
+      ).then(response =>
+        response.json().then(response => setCryptoPrices(response)),
+      );
+    } catch (error) {}
   }, []);
 
   const SectionDivider = () => (
-    <Divider style={[styles.divider, {backgroundColor: colors.text}]} />
+    <View style={[styles.divider, {backgroundColor: colors.text}]} />
   );
 
   const RenderContent = () => {
@@ -84,9 +93,6 @@ const Explore = () => {
         <Affirmation colors={colors} affirmation={affirmation} />
         <SectionDivider />
         <JokeSection colors={colors} />
-        {/* <SectionDivider /> */}
-        {/* <WordSection /> */}
-        {/* <SectionDivider /> */}
         <NasaSection colors={colors} nasaData={nasaData} />
       </>
     );
@@ -96,7 +102,6 @@ const Explore = () => {
       <ScrollView>
         <View style={styles.parentContainer}>
           <View style={styles.topContainer}>
-            {/* <MaterialIcons name="explore" size={30} color={colors.text} /> */}
             <IconRender opacity={true} icon={compassIcon} />
             <Text style={[styles.headingText, {color: colors.text}]}>
               Explore
@@ -134,8 +139,9 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
   },
   divider: {
+    borderWidth: 1,
     marginVertical: 20,
-    marginHorizontal: 40,
+    marginHorizontal: 20,
   },
 });
 

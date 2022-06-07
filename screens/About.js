@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
+import {View, Text, StyleSheet, Linking} from 'react-native';
 import Theme from '../assets/UI/Theme';
 import Card from '../components/UI/Card';
 import ScreenDimensions from '../assets/UI/ScreenDimensions';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconRender from '../components/UI/IconRender';
+import Icons from '../assets/UI/Icons';
 
 const About = () => {
   const colors = Theme();
+  const {githubIcon, telegramIcon} = Icons();
 
   const telegramHandler = () => {
     Linking.openURL('https://t.me/Wantedbear007');
@@ -51,18 +54,14 @@ const About = () => {
         <View style={styles.card}>
           <View>
             <Text style={[styles.version, {color: colors.disabledText}]}>
-              Version: 1.0
+              Version: 1.1
             </Text>
             <Text style={[styles.developer, {color: colors.text}]}>
               {'</> with ❤ by Bhanupratap.'}
             </Text>
           </View>
-          <TouchableOpacity onPress={telegramHandler}>
-            <FontAwesome name="telegram" size={35} color={colors.text} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={githubHandler}>
-            <FontAwesome name="github" size={35} color={colors.text} />
-          </TouchableOpacity>
+          <IconRender icon={telegramIcon} onPress={telegramHandler} />
+          <IconRender icon={githubIcon} onPress={githubHandler} />
         </View>
       </View>
     </Card>
@@ -78,6 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     marginVertical: ScreenDimensions.height * 0.15,
     alignItems: 'flex-end',
+    fontWeight: "600"
   },
   cardContainer: {
     marginRight: 30,

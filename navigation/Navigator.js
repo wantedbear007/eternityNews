@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Screens
 import Home from '../screens/Home';
