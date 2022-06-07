@@ -3,18 +3,7 @@ import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
 
 const ImageSection = ({colors, imageData}) => {
-  // const colors = Theme();
-  // const [imageData, setImageData] = useState([]);
 
-  // useEffect(() => {
-  //   let pageNumber = Math.floor(Math.random() * 200);
-  //   const url = 'https://picsum.photos/v2/list?page=' + pageNumber + '&limit=5';
-  //   try {
-  //     fetch(url)
-  //       .then(response => response.json())
-  //       .then(data => setImageData(data))
-  //   } catch (err) {}
-  // }, []);
 
   return (
     <View style={[styles.parent, {backgroundColor: colors.cardBackground}]}>

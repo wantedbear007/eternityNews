@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Card from '../components/UI/Card';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Theme from '../assets/UI/Theme';
 import CryptoSection from '../components/Explore/CryptoSection';
 import QuoteSection from '../components/Explore/QuoteSection';
@@ -13,6 +12,7 @@ import NasaSection from '../components/Explore/NasaSection';
 import SkeletonExplore from '../components/Explore/SkeletonExplore';
 import IconRender from '../components/UI/IconRender';
 import Icons from '../assets/UI/Icons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Explore = ({navigation}) => {
   const colors = Theme();
@@ -26,11 +26,22 @@ const Explore = ({navigation}) => {
   const [affirmation, setAffirmation] = useState('');
   const [quote, setQuote] = useState({});
   const [jokes, setJokes] = useState([]);
+  const [userName, setUserName] = useState('😀');
 
   // Image API page Number
   let pageNumber = Math.floor(Math.random() * 200);
 
+  const getStoredData = async () => {
+    try {
+      const fetchedNewsData = await AsyncStorage.getItem('username');
+      setUserName(fetchedNewsData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
+    getStoredData();
     // NASA REQUEST
     try {
       fetch(
@@ -71,7 +82,7 @@ const Explore = ({navigation}) => {
       console.log(err);
     }
     GetQuotes();
-    GetJokes()
+    GetJokes();
   }, []);
 
   // QUOTE REQUEST
@@ -147,7 +158,9 @@ const Explore = ({navigation}) => {
             onPress={NavigateAboutPage}
           />
         </View>
-        <Text style={[styles.greet, {color: colors.text}]}>{Greeting} !</Text>
+        <Text style={[styles.greet, {color: colors.text}]}>
+          {Greeting} {userName} !
+        </Text>
         {loading ? <SkeletonExplore /> : <RenderContent />}
         {/* <RenderContent /> */}
       </ScrollView>

@@ -2,7 +2,6 @@ import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import React, {memo} from 'react';
 
 const TrendingNewsRender = ({colors, item, navigation}) => {
-  // const colors = Theme();
 
   // Navigation Function
   const NavigateDetailsPage = () => {

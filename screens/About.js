@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Linking} from 'react-native';
 import Theme from '../assets/UI/Theme';
 import Card from '../components/UI/Card';
 import ScreenDimensions from '../assets/UI/ScreenDimensions';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconRender from '../components/UI/IconRender';
 import Icons from '../assets/UI/Icons';
 

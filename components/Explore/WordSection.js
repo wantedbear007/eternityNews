@@ -12,7 +12,6 @@ const WordSection = () => {
       .then(response => setData(response));
   }, []);
 
-  // console.log(data);
   return (
 <>
     {data &&  <View style={styles.parentContainer}>

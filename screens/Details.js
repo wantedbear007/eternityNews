@@ -10,14 +10,12 @@ import {
   Share,
 } from 'react-native';
 import Card from '../components/UI/Card';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconRender from '../components/UI/IconRender';
 import Icons from '../assets/UI/Icons';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 const Details = ({route, navigation}) => {
   const {bigShareButton, backButton, copyButton} = Icons();
-  // const colors = Theme();
   const item = route.params.data;
   const colors = route.params.colors;
 

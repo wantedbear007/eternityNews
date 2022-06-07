@@ -21,6 +21,21 @@ const Icons = () => {
         <Path d="M0 0h48v48H0z" />
       </Svg>
     ),
+    staticNextButton: (
+      <Svg
+        height={28}
+        viewBox="0 0 48 48"
+        width={28}
+        xmlns="http://www.w3.org/2000/svg"
+        // {...props}
+      >
+        <Path
+          d="M20 12l-2.83 2.83L26.34 24l-9.17 9.17L20 36l12-12z"
+          fill="#fff"
+        />
+        <Path d="M0 0h48v48H0z" />
+      </Svg>
+    ),
     shareButton: (
       <Svg
         xmlns="http://www.w3.org/2000/svg"
@@ -181,6 +196,7 @@ const Icons = () => {
         />
       </Svg>
     ),
+
   };
 
   return icons;

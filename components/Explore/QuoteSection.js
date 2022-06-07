@@ -5,10 +5,6 @@ import {
   StyleSheet,
   Share,
 } from 'react-native';
-// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import ShareButton from '../../assets/Icons/shareButton.svg';
-// import NextButton from '../../assets/Icons/352561_navigate_next_icon.svg';
-// import Svg, {Path} from 'react-native-svg';
 import Icons from '../../assets/UI/Icons';
 import IconRender from '../UI/IconRender';
 import Clipboard from '@react-native-clipboard/clipboard';

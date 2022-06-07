@@ -22,20 +22,7 @@ const NasaSection = ({colors, nasaData}) => {
         ' https://apod.nasa.gov/apod/astropix.html',
     });
   };
-  // const colors = Theme();
-  // const [nasaData, setNasaData] = useState([]);
 
-  // useEffect(() => {
-  //   try {
-  //     fetch(
-  //       'https://api.nasa.gov/planetary/apod?api_key=0XVfgvwJDjzYEUxQPrsFA0UGtcR6YWA96MHbk6Im',
-  //     ).then(response =>
-  //       response.json().then(response => setNasaData(response)),
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
 
   const sourceHandler = () => {
     Linking.openURL('https://apod.nasa.gov/apod/astropix.html');

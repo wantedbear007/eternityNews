@@ -6,7 +6,6 @@ import SkeletonHome from './SkeletonHome';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const TrendingNews = ({colors, navigation}) => {
-  // const colors = Theme();
   const [newsEnd, setNewsEnd] = useState(false);
   const [news, setNews] = useState([]);
   const [newsQuantity, setNewsQuantity] = useState(10);

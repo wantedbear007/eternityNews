@@ -3,34 +3,34 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Theme from '../assets/UI/Theme';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Svg, {Path} from 'react-native-svg';
 
 // Screens
 import Home from '../screens/Home';
 import About from '../screens/About';
 import Details from '../screens/Details';
 import Explore from '../screens/Explore';
-import Svg, {Path} from 'react-native-svg';
+import InfoPage from '../screens/InfoPage';
+import LoadingPage from '../screens/LoadingPage';
 
 // For app navigation
 const Stack = createNativeStackNavigator();
 
 // For bottom Navigation
 const Tab = createBottomTabNavigator();
-// const Tab = createMaterialBottomTabNavigator();
 
 const BottomNav = () => {
   const colors = Theme();
-
 
   return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor={colors.accent}
-      tabBarLabel={{focused: false, color: 'red'}}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.accent,
         tabBarStyle: {backgroundColor: colors.background},
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="Home"
@@ -69,31 +69,20 @@ const BottomNav = () => {
           ),
         }}
       />
-
-      {/* <Tab.Screen
-        name="About"
-        component={About}
-        options={{
-          tabBarIcon: ({color}) => (
-            <Svg width="24px" height="24px" viewBox="0 0 24 24">
-              <Path
-                fill={color}
-                d="M9 20h6v2H9zm7.906-6.288C17.936 12.506 19 11.259 19 9c0-3.859-3.141-7-7-7S5 5.141 5 9c0 2.285 1.067 3.528 2.101 4.73.358.418.729.851 1.084 1.349.144.206.38.996.591 1.921h-.792v2h8.032v-2h-.79c.213-.927.45-1.719.593-1.925.352-.503.726-.94 1.087-1.363z"
-              />
-            </Svg>
-          ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 };
 
 const Navigator = () => (
   <NavigationContainer>
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName="LoadingPage"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="BottomNav" component={BottomNav} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="InfoPage" component={InfoPage} />
+      <Stack.Screen name="LoadingPage" component={LoadingPage} />
       <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   </NavigationContainer>

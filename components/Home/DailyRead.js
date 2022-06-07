@@ -49,7 +49,7 @@ const DailyRead = ({navigation, colors}) => {
     }
   }, [newsQuantity]);
 
-  const renderItems = ({item, nav}) => {
+  const renderItems = ({item}) => {
     if (loading) {
       return <SkeletonHome />;
     } else {
@@ -58,13 +58,7 @@ const DailyRead = ({navigation, colors}) => {
       );
     }
   };
-  // loading ? (
-  //   <DailyReadSkeleton />
-  // ) : (
-  //   <DailyReadRender colors={colors} item={item} navigation={navigation} />
-  // );
 
-  //   Loader
 
   // Infinite Scrolling
   const infiniteScrolling = () => {

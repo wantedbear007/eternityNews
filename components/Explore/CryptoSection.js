@@ -4,16 +4,6 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import colors from '../../assets/UI/colors';
 
 const CryptoSection = ({cryptoPrice}) => {
-  // const [price, setPrice] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchPrices = async () => {
-  //     const prices = await CryptoPrices();
-  //     setPrice(prices);
-  //   };
-  //   fetchPrices();
-  // }, []);
-
   return (
     <View style={styles.parentContainer}>
       {cryptoPrice.map((item, index) => {
