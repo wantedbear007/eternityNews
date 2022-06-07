@@ -16,9 +16,7 @@ const DailyRead = ({navigation, colors}) => {
     try {
       const jsonVal = JSON.stringify(val);
       await AsyncStorage.setItem('newsData', jsonVal);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const getStoredData = async () => {
@@ -26,10 +24,8 @@ const DailyRead = ({navigation, colors}) => {
       const fetchedNewsData = await AsyncStorage.getItem('newsData');
       const fetchedJSON = JSON.parse(fetchedNewsData);
       setNews(fetchedJSON);
-      setLoading(false)
-    } catch (e) {
-      console.log(e);
-    }
+      setLoading(false);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -44,9 +40,7 @@ const DailyRead = ({navigation, colors}) => {
           storeData(response.data.articles);
           setLoading(false);
         });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }, [newsQuantity]);
 
   const renderItems = ({item}) => {
@@ -58,7 +52,6 @@ const DailyRead = ({navigation, colors}) => {
       );
     }
   };
-
 
   // Infinite Scrolling
   const infiniteScrolling = () => {

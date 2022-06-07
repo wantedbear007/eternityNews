@@ -1,7 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-// import CryptoPrices from '../../services/CryptoPrices';
-import colors from '../../assets/UI/colors';
 
 const CryptoSection = ({cryptoPrice}) => {
   return (
@@ -66,16 +64,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    color: colors.white,
+    color: '#fff',
     fontWeight: '500',
     fontSize: 10,
   },
   price: {
-    color: colors.white,
+    color: '#fff',
     fontSize: 13,
   },
   percentage: {
-    color: colors.text,
+    color: '#000',
     fontSize: 10,
     fontWeight: '600',
   },

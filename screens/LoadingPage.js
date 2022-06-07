@@ -15,9 +15,7 @@ const LoadingPage = ({navigation}) => {
       } else {
         navigation.replace('InfoPage');
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   React.useEffect(() => {
@@ -26,8 +24,16 @@ const LoadingPage = ({navigation}) => {
 
   return (
     <Card>
-      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: colors.text}}>
-        <Text style={{fontSize: 30, color: colors.background}}>Eternity News</Text>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          backgroundColor: colors.background,
+        }}>
+        <Text style={{fontSize: 30, color: colors.text}}>
+          Eternity News
+        </Text>
       </View>
     </Card>
   );

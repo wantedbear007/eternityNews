@@ -14,7 +14,8 @@ const TopHeader = ({colors, icons}) => {
       <View style={styles.textContainer}>
         <Text style={[styles.title, {color: colors.text}]}>Discover</Text>
         <Text style={[styles.slogan, {color: colors.accent}]}>
-          Read the World Today!
+          {/* Read the World Today! */}
+          Better informed briefly.
         </Text>
       </View>
       <TouchableOpacity onPress={themeButtonHandler}>
@@ -23,12 +24,7 @@ const TopHeader = ({colors, icons}) => {
         ) : (
           <IconRender icon={moonIcon} onPress={themeButtonHandler} />
         )}
-        {/* <Ionicons
-          name={!darkTheme ? 'moon' : 'sunny'}
-          size={24}
-          color={colors.text}
-          style={{marginRight: 10}}
-        /> */}
+    
       </TouchableOpacity>
     </View>
   );
@@ -44,12 +40,12 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 30,
+    fontSize: 33,
     fontWeight: '800',
   },
   slogan: {
     marginBottom: 7,
-    fontSize: 10,
+    fontSize: 11,
   },
 });
 

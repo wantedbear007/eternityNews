@@ -5,7 +5,7 @@ import { Appearance } from 'react-native';
 const Context = createContext();
 
 export function ContextContainer({children}) {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(true);
   const systemTheme = Appearance.getColorScheme()
   useEffect(() => {
     const getData = async () => {
@@ -15,7 +15,7 @@ export function ContextContainer({children}) {
           setDarkTheme(true);
         }
       } catch (e) {
-        console.log(e);
+        
       }
     };
 
@@ -28,7 +28,7 @@ export function ContextContainer({children}) {
         const jsonVal = JSON.stringify(darkTheme);
         await AsyncStorage.setItem('theme', jsonVal);
       } catch (e) {
-        console.log(e);
+        
       }
     };
 

@@ -27,7 +27,7 @@ const InfoPage = ({navigation}) => {
       const jsonVal = JSON.stringify(txt);
       await AsyncStorage.setItem('username', jsonVal);
     } catch (e) {
-      console.log(e);
+      
     }
   };
 

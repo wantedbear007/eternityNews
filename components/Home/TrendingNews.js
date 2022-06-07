@@ -16,7 +16,7 @@ const TrendingNews = ({colors, navigation}) => {
       const jsonVal = JSON.stringify(val);
       await AsyncStorage.setItem('trendingNews', jsonVal);
     } catch (e) {
-      console.log(e);
+      
     }
   };
 
@@ -27,7 +27,7 @@ const TrendingNews = ({colors, navigation}) => {
       setLoading(false);
       setNews(fetchedJSON);
     } catch (e) {
-      console.log(e);
+      
     }
   };
 

@@ -36,7 +36,7 @@ const Explore = ({navigation}) => {
       const fetchedNewsData = await AsyncStorage.getItem('username');
       setUserName(fetchedNewsData);
     } catch (e) {
-      console.log(e);
+      
     }
   };
 
@@ -50,7 +50,7 @@ const Explore = ({navigation}) => {
         response.json().then(response => setNasaData(response)),
       );
     } catch (err) {
-      console.log(err);
+      
     }
     // IMAGE REQUEST
     const url = 'https://picsum.photos/v2/list?page=' + pageNumber + '&limit=5';
@@ -59,7 +59,7 @@ const Explore = ({navigation}) => {
         .then(response => response.json())
         .then(data => setImageData(data));
     } catch (err) {
-      console.log(err);
+      
     }
 
     // AFFIRMATION REQUEST
@@ -68,7 +68,7 @@ const Explore = ({navigation}) => {
         .then(response => response.json())
         .then(data => setAffirmation(data.affirmation));
     } catch (error) {
-      console.log(err);
+      
     }
 
     // CRYPTO REQUEST
@@ -79,7 +79,7 @@ const Explore = ({navigation}) => {
         response.json().then(response => setCryptoPrices(response)),
       );
     } catch (error) {
-      console.log(err);
+      
     }
     GetQuotes();
     GetJokes();
@@ -94,7 +94,7 @@ const Explore = ({navigation}) => {
           setQuote({qte: data.content, author: data.author});
         });
     } catch (err) {
-      console.log(err);
+      
     }
   };
 
@@ -162,7 +162,6 @@ const Explore = ({navigation}) => {
           {Greeting} {userName} !
         </Text>
         {loading ? <SkeletonExplore /> : <RenderContent />}
-        {/* <RenderContent /> */}
       </ScrollView>
     </Card>
   );
@@ -182,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headingText: {
-    fontSize: 25,
+    fontSize: 31,
     marginLeft: 5,
     fontWeight: '800',
   },
@@ -191,7 +190,8 @@ const styles = StyleSheet.create({
     marginLeft: 23,
     paddingTop: 20,
     textAlign: 'center',
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
+    fontStyle: 'italic'
   },
   divider: {
     borderWidth: 1,
