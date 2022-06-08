@@ -9,6 +9,7 @@ import InfoPage from './InfoPage';
 const Home = ({navigation}) => {
   const colors = Theme();
   const icons = Icons();
+  
 
   return (
     <Card>

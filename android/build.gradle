@@ -51,3 +51,7 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
+  project.ext.react = [
+      entryFile: "index.js",
+      enableHermes: true
+  ]

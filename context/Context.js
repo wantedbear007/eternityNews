@@ -1,22 +1,24 @@
 import React, {createContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Appearance } from 'react-native';
+import {Appearance} from 'react-native';
 
 const Context = createContext();
 
 export function ContextContainer({children}) {
   const [darkTheme, setDarkTheme] = useState(true);
-  const systemTheme = Appearance.getColorScheme()
+  const systemTheme = Appearance.getColorScheme();
   useEffect(() => {
     const getData = async () => {
       try {
         const darkMode = await AsyncStorage.getItem('theme');
-        if (darkMode == 'true') {
-          setDarkTheme(true);
+        if (darkMode == 'false') {
+          setDarkTheme(false);
+        } else if (!darkMode) {
+          if (systemTheme == 'light') {
+            setDarkTheme(false);
+          }
         }
-      } catch (e) {
-        
-      }
+      } catch (e) {}
     };
 
     getData();
@@ -27,9 +29,7 @@ export function ContextContainer({children}) {
       try {
         const jsonVal = JSON.stringify(darkTheme);
         await AsyncStorage.setItem('theme', jsonVal);
-      } catch (e) {
-        
-      }
+      } catch (e) {}
     };
 
     storeData();
