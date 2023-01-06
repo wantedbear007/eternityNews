@@ -11,7 +11,7 @@ const DailyReadRender = ({item, navigation, colors}) => {
     <View
       activeOpacity={0.4}
       style={[styles.compactCard, {backgroundColor: colors.cardBackground}]}>
-      <Image source={{uri: item.image_url}} style={styles.compactImage} />
+      <Image source={{uri: item.imageUrl}} style={styles.compactImage} />
       <View>
         <Text
           style={[
@@ -24,7 +24,7 @@ const DailyReadRender = ({item, navigation, colors}) => {
           <Text style={{color: colors.accent}}>Read More..</Text>
         </TouchableOpacity>
         <Text style={[styles.sourceText, {color: colors.disabledText}]}>
-          {item.source_name}
+          {item.sourceName}
         </Text>
       </View>
     </View>

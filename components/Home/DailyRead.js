@@ -11,6 +11,7 @@ const DailyRead = ({navigation, colors}) => {
   const [news, setNews] = useState([]);
   const [newsEnd, setNewsEnd] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [offSet, setOffSet] = useState(0);
 
   const storeData = async val => {
     try {
@@ -28,19 +29,31 @@ const DailyRead = ({navigation, colors}) => {
     } catch (e) {}
   };
 
+  // trial 
+  const getNews = () => {
+      axios.get("https://inshorts.me/news/all?offset=0&limit=10").then(response => {console.log(response.data.data.articles)})
+  }
+
   useEffect(() => {
+    // getNews();
     getStoredData();
     try {
       axios
         .get(
-          `https://inshortsv2.vercel.app/news?type=all_news&limit=${newsQuantity}`,
+          `https://inshorts.me/news/all?offset=${offSet}&limit=${newsQuantity}`,
+          // `https://inshortsv2.vercel.app/news?type=all_news&limit=${newsQuantity}`,
+
         )
         .then(response => {
-          setNews(response.data.articles);
-          storeData(response.data.articles);
+          setNews(response.data.data.articles);
+
+          // storeData(response.data.articles);
+          // setNews(response.data.articles);
+          // storeData(response.data.articles);
           setLoading(false);
         });
     } catch (error) {}
+    //  console.log(news);
   }, [newsQuantity]);
 
   const renderItems = ({item}) => {
@@ -55,11 +68,16 @@ const DailyRead = ({navigation, colors}) => {
 
   // Infinite Scrolling
   const infiniteScrolling = () => {
-    if (newsQuantity >= 250) {
+    if (newsQuantity >= 200) {
       ToastAndroid.show('No more news', ToastAndroid.SHORT);
       setNewsEnd(true);
     } else {
+      console.log(offSet);
+      console.log(newsQuantity)
+      setOffSet(newsQuantity);
       setNewsQuantity(newsQuantity + 15);
+      console.log(newsQuantity)
+
     }
   };
 

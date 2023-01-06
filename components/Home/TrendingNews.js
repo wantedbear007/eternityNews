@@ -37,11 +37,14 @@ const TrendingNews = ({colors, navigation}) => {
     try {
       axios
         .get(
-          `https://inshortsv2.vercel.app/news?type=top_stories&limit=${newsQuantity}`,
+          // https://inshorts.me/news/trending?offset=0&limit=10
+          `https://inshorts.me/news/trending?limit=${newsQuantity}`,
+          // `https://inshortsv2.vercel.app/news?type=top_stories&limit=${newsQuantity}`,
+
         )
         .then(response => {
-          setNews(response.data.articles);
-          storeData(response.data.articles);
+          setNews(response.data.data.articles);
+          // storeData(response.data.articles);
           setLoading(false);
         });
     } catch (e) {}

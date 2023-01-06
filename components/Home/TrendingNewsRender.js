@@ -12,12 +12,12 @@ const TrendingNewsRender = ({colors, item, navigation}) => {
       onPress={NavigateDetailsPage}
       activeOpacity={0.7}
       style={[styles.trendingCard, {backgroundColor: colors.cardBackground}]}>
-      <Image source={{uri: item.image_url}} style={styles.trendingImage} />
+      <Image source={{uri: item.imageUrl}} style={styles.trendingImage} />
       <Text style={[styles.trendingTitle, {color: colors.text}]}>
         {item.title}
       </Text>
       <Text style={[styles.sourceText, {color: colors.disabledText}]}>
-        {item.source_name}
+        {item.sourceName}
       </Text>
     </TouchableOpacity>
   );

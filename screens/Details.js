@@ -22,13 +22,13 @@ const Details = ({route, navigation}) => {
   // ShareFunction
   const onShare = () => {
     Share.share({
-      message: item.title + ' (' + item.description + ')',
+      message: item.title + ' (' + item.content + ')',
     });
   };
 
   // Copy to clipboard handler
   const copyToClipboard = () => {
-    Clipboard.setString(item.title + ' (' + item.description + ')');
+    Clipboard.setString(item.title + ' (' + item.content + ')');
   };
 
   return (
@@ -48,23 +48,23 @@ const Details = ({route, navigation}) => {
             ]}>
             <Image
               style={styles.imageContainer}
-              source={{uri: item.image_url}}
+              source={{uri: item.imageUrl}}
             />
             <View style={styles.childContainer}>
               <Text style={[styles.authorName, {color: colors.disabledText}]}>
                 {'Author: '}
-                {item.author_name}
+                {item.authorName}
               </Text>
               <Text style={[styles.sourceName, {color: colors.accent}]}>
-                {item.source_name}
+                {item.sourceName}
               </Text>
             </View>
             <Text style={[styles.description, {color: colors.text}]}>
-              {item.description}
+              {item.content}
             </Text>
             <TouchableOpacity
               onPress={() => {
-                Linking.openURL(item.source_url);
+                Linking.openURL(item.sourceUrl);
               }}>
               <Text style={[styles.source, {color: colors.accent}]}>
                 Read source
