@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, StyleSheet, ToastAndroid} from 'react-native';
+import {View, FlatList, StyleSheet, ToastAndroid, Text} from 'react-native';
 import axios from 'axios';
 import DailyReadRender from './DailyReadRender';
 import TrendingNews from './TrendingNews';
 import AsyncStorage from '@react-native-community/async-storage';
 import SkeletonHome from './SkeletonHome';
+import ErrorScreen from '../UI/ErrorScreen';
 
 const DailyRead = ({navigation, colors}) => {
   const [newsQuantity, setNewsQuantity] = useState(15);
@@ -12,6 +13,7 @@ const DailyRead = ({navigation, colors}) => {
   const [newsEnd, setNewsEnd] = useState(false);
   const [loading, setLoading] = useState(true);
   const [offSet, setOffSet] = useState(0);
+  const [errorStatus, setErrorStatus] = useState(false);
 
   const storeData = async val => {
     try {
@@ -29,31 +31,26 @@ const DailyRead = ({navigation, colors}) => {
     } catch (e) {}
   };
 
-  // trial 
-  const getNews = () => {
-      axios.get("https://inshorts.me/news/all?offset=0&limit=10").then(response => {console.log(response.data.data.articles)})
-  }
+ 
 
   useEffect(() => {
-    // getNews();
-    getStoredData();
+    // getStoredData();
     try {
       axios
         .get(
           `https://inshorts.me/news/all?offset=${offSet}&limit=${newsQuantity}`,
-          // `https://inshortsv2.vercel.app/news?type=all_news&limit=${newsQuantity}`,
-
         )
+
         .then(response => {
           setNews(response.data.data.articles);
-
-          // storeData(response.data.articles);
-          // setNews(response.data.articles);
-          // storeData(response.data.articles);
           setLoading(false);
+        })
+        .catch(err => {
+          if (err.response) {
+            setErrorStatus(true);
+          }
         });
     } catch (error) {}
-    //  console.log(news);
   }, [newsQuantity]);
 
   const renderItems = ({item}) => {
@@ -72,33 +69,35 @@ const DailyRead = ({navigation, colors}) => {
       ToastAndroid.show('No more news', ToastAndroid.SHORT);
       setNewsEnd(true);
     } else {
-      console.log(offSet);
-      console.log(newsQuantity)
       setOffSet(newsQuantity);
       setNewsQuantity(newsQuantity + 15);
-      console.log(newsQuantity)
-
     }
   };
 
   return (
     <View style={styles.compactContainer}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-        data={news}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItems}
-        onEndReached={infiniteScrolling}
-        ListHeaderComponent={
-          <TrendingNews colors={colors} navigation={navigation} />
-        }
-        ListFooterComponent={!newsEnd && <SkeletonHome />}
-        legacyImplementation={false}
-        maxToRenderPerBatch={5}
-        initialNumToRender={5}
-        onEndReachedThreshold={0.5}
-      />
+      {errorStatus ? (
+        <>
+          <ErrorScreen colors={colors} />
+        </>
+      ) : (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          data={news}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={renderItems}
+          onEndReached={infiniteScrolling}
+          ListHeaderComponent={
+            <TrendingNews colors={colors} navigation={navigation} />
+          }
+          ListFooterComponent={!newsEnd && <SkeletonHome />}
+          legacyImplementation={false}
+          maxToRenderPerBatch={5}
+          initialNumToRender={5}
+          onEndReachedThreshold={0.5}
+        />
+      )}
     </View>
   );
 };

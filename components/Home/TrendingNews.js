@@ -10,14 +10,13 @@ const TrendingNews = ({colors, navigation}) => {
   const [news, setNews] = useState([]);
   const [newsQuantity, setNewsQuantity] = useState(10);
   const [loading, setLoading] = useState(true);
+  const [offSet, setOffSet] = useState(0);
 
   const storeData = async val => {
     try {
       const jsonVal = JSON.stringify(val);
       await AsyncStorage.setItem('trendingNews', jsonVal);
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   };
 
   const getStoredData = async () => {
@@ -26,27 +25,23 @@ const TrendingNews = ({colors, navigation}) => {
       const fetchedJSON = JSON.parse(fetchedNewsData);
       setLoading(false);
       setNews(fetchedJSON);
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   };
 
   //Fetching News
   useEffect(() => {
-    getStoredData();
+    // getStoredData();
     try {
       axios
         .get(
-          // https://inshorts.me/news/trending?offset=0&limit=10
-          `https://inshorts.me/news/trending?limit=${newsQuantity}`,
-          // `https://inshortsv2.vercel.app/news?type=top_stories&limit=${newsQuantity}`,
-
+          `https://inshorts.me/news/trending?offset=${offSet}&limit=${newsQuantity}`,
         )
         .then(response => {
           setNews(response.data.data.articles);
           // storeData(response.data.articles);
           setLoading(false);
-        });
+        })
+        .catch(err => {});
     } catch (e) {}
   }, [newsQuantity]);
 
@@ -60,10 +55,11 @@ const TrendingNews = ({colors, navigation}) => {
 
   // Infinite Scrolling
   const infiniteScrolling = () => {
-    if (newsQuantity >= 30) {
+    if (newsQuantity >= 130) {
       setNewsEnd(true);
       ToastAndroid.show('No more news', ToastAndroid.SHORT);
     } else {
+      setOffSet(newsQuantity);
       setNewsQuantity(newsQuantity + 5);
     }
   };
@@ -75,7 +71,7 @@ const TrendingNews = ({colors, navigation}) => {
           {
             color: colors.accent,
             textAlign: 'center',
-            marginBottom: 10,
+            marginVertical: 10,
             fontWeight: '500',
           },
         ]}>

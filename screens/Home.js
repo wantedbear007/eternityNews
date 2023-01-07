@@ -4,7 +4,6 @@ import TopHeader from '../components/Home/TopHeader';
 import DailyRead from '../components/Home/DailyRead';
 import Theme from '../assets/UI/Theme';
 import Icons from '../assets/UI/Icons';
-import InfoPage from './InfoPage';
 
 const Home = ({navigation}) => {
   const colors = Theme();

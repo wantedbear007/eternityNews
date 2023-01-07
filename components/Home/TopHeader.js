@@ -8,24 +8,26 @@ const TopHeader = ({colors, icons}) => {
   const {moonIcon, sunIcon} = icons;
 
   const themeButtonHandler = () => themeHandler(true);
-
   return (
-    <View style={styles.parentContainer}>
-      <View style={styles.textContainer}>
-        <Text style={[styles.title, {color: colors.text}]}>Discover</Text>
-        <Text style={[styles.slogan, {color: colors.accent}]}>
-          {/* Read the World Today! */}
-          Better informed briefly.
-        </Text>
+    <View style={[{backgroundColor: colors.cardBackground}]}>
+      <View style={styles.parentContainer}>
+        <View style={styles.textContainer}>
+          <Text style={[styles.title, {color: colors.text}]}>Discover</Text>
+          <Text style={[styles.slogan, {color: colors.accent}]}>
+            {/* Read the World Today! */}
+            Better informed briefly.
+          </Text>
+        </View>
+
+        {/* <IconRender icon={sunIcon} onPress={themeButtonHandler} /> */}
+        <TouchableOpacity onPress={themeButtonHandler}>
+          {darkTheme ? (
+            <IconRender icon={sunIcon} onPress={themeButtonHandler} />
+          ) : (
+            <IconRender icon={moonIcon} onPress={themeButtonHandler} />
+          )}
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={themeButtonHandler}>
-        {darkTheme ? (
-          <IconRender icon={sunIcon} onPress={themeButtonHandler} />
-        ) : (
-          <IconRender icon={moonIcon} onPress={themeButtonHandler} />
-        )}
-    
-      </TouchableOpacity>
     </View>
   );
 };
@@ -35,17 +37,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginVertical: 2,
+    marginBottom: 2,
     alignItems: 'center',
   },
 
   title: {
-    fontSize: 33,
+    fontSize: 30,
     fontWeight: '800',
   },
   slogan: {
     marginBottom: 7,
-    fontSize: 11,
+    fontSize: 10,
   },
 });
 

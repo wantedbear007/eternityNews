@@ -24,7 +24,7 @@ const Explore = ({navigation}) => {
   const [cryptoPrice, setCryptoPrices] = useState([]);
   const [imageData, setImageData] = useState([]);
   const [affirmation, setAffirmation] = useState('');
-  const [quote, setQuote] = useState({qte: "Loading...", author: ""});
+  const [quote, setQuote] = useState({qte: 'Loading...', author: ''});
   const [jokes, setJokes] = useState([]);
   const [userName, setUserName] = useState('😀');
 
@@ -35,9 +35,7 @@ const Explore = ({navigation}) => {
     try {
       const fetchedNewsData = await AsyncStorage.getItem('username');
       setUserName(fetchedNewsData);
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -49,27 +47,21 @@ const Explore = ({navigation}) => {
       ).then(response =>
         response.json().then(response => setNasaData(response)),
       );
-    } catch (err) {
-      
-    }
+    } catch (err) {}
     // IMAGE REQUEST
     const url = 'https://picsum.photos/v2/list?page=' + pageNumber + '&limit=5';
     try {
       fetch(url)
         .then(response => response.json())
         .then(data => setImageData(data));
-    } catch (err) {
-      
-    }
+    } catch (err) {}
 
     // AFFIRMATION REQUEST
     try {
       fetch('https://www.affirmations.dev/')
         .then(response => response.json())
         .then(data => setAffirmation(data.affirmation));
-    } catch (error) {
-      
-    }
+    } catch (error) {}
 
     // CRYPTO REQUEST
     try {
@@ -78,9 +70,7 @@ const Explore = ({navigation}) => {
       ).then(response =>
         response.json().then(response => setCryptoPrices(response)),
       );
-    } catch (error) {
-      
-    }
+    } catch (error) {}
     GetQuotes();
     GetJokes();
   }, []);
@@ -93,9 +83,7 @@ const Explore = ({navigation}) => {
         .then(data => {
           setQuote({qte: data.content, author: data.author});
         });
-    } catch (err) {
-      
-    }
+    } catch (err) {}
   };
 
   // JOKES REQUEST
@@ -144,25 +132,28 @@ const Explore = ({navigation}) => {
 
   return (
     <Card>
-      <ScrollView>
-        <View style={styles.parentContainer}>
-          <View style={styles.topContainer}>
-            <IconRender opacity={true} icon={compassIcon} />
-            <Text style={[styles.headingText, {color: colors.text}]}>
-              Explore
-            </Text>
+        <View style={[{backgroundColor: colors.cardBackground, paddingBottom: 5}]}>
+          <View style={styles.parentContainer}>
+            <View style={styles.topContainer}>
+              <IconRender opacity={true} icon={compassIcon} />
+              <Text style={[styles.headingText, {color: colors.text}]}>
+                Explore
+              </Text>
+            </View>
+            <IconRender
+              icon={infoIcon}
+              style={{marginRight: 10}}
+              onPress={NavigateAboutPage}
+            />
           </View>
-          <IconRender
-            icon={infoIcon}
-            style={{marginRight: 10}}
-            onPress={NavigateAboutPage}
-          />
         </View>
+      <ScrollView>
         <Text style={[styles.greet, {color: colors.text}]}>
           {Greeting} {userName} !
         </Text>
         {loading ? <SkeletonExplore /> : <RenderContent />}
       </ScrollView>
+      {/* </View> */}
     </Card>
   );
 };
@@ -189,9 +180,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 23,
     paddingTop: 20,
-    textAlign: 'center',
-    letterSpacing: 1.2,
-    fontStyle: 'italic'
+    // textAlign: 'center',
+    fontWeight: '600',
+
+    // letterSpacing: 1.2,
+    fontStyle: 'italic',
   },
   divider: {
     borderWidth: 1,
