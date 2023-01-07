@@ -22,21 +22,25 @@ const DailyRead = ({navigation, colors}) => {
   const [errorStatus, setErrorStatus] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const storeData = async val => {
-    try {
-      const jsonVal = JSON.stringify(val);
-      await AsyncStorage.setItem('newsData', jsonVal);
-    } catch (e) {}
-  };
 
-  const getStoredData = async () => {
-    try {
-      const fetchedNewsData = await AsyncStorage.getItem('newsData');
-      const fetchedJSON = JSON.parse(fetchedNewsData);
-      setNews(fetchedJSON);
-      setLoading(false);
-    } catch (e) {}
-  };
+  // delete
+  const [del, setDel] = useState([])
+
+  // const storeData = async val => {
+  //   try {
+  //     const jsonVal = JSON.stringify(val);
+  //     await AsyncStorage.setItem('newsData', jsonVal);
+  //   } catch (e) {}
+  // };
+
+  // const getStoredData = async () => {
+  //   try {
+  //     const fetchedNewsData = await AsyncStorage.getItem('newsData');
+  //     const fetchedJSON = JSON.parse(fetchedNewsData);
+  //     setNews(fetchedJSON);
+  //     setLoading(false);
+  //   } catch (e) {}
+  // };
 
   async function fetchData() {
     try {
@@ -48,6 +52,7 @@ const DailyRead = ({navigation, colors}) => {
         .then(response => {
           setNews(response.data.data.articles);
           // console.log(response);
+          // storeData(response.data.data.articles)
           setLoading(false);
         })
         .catch(err => {
@@ -58,9 +63,11 @@ const DailyRead = ({navigation, colors}) => {
     } catch (error) {}
   }
 
+
+  
+
   useEffect(() => {
-    // getStoredData();
-    fetchData();
+    fetchData()
   }, [newsQuantity]);
 
   const renderItems = ({item}) => {
@@ -68,14 +75,19 @@ const DailyRead = ({navigation, colors}) => {
       return <SkeletonHome />;
     } else {
       return (
-        <DailyReadRender colors={colors} item={item} navigation={navigation} />
+        <DailyReadRender
+          offSetNumber={offSet}
+          colors={colors}
+          item={item}
+          navigation={navigation}
+        />
       );
     }
   };
 
   // Infinite Scrolling
   const infiniteScrolling = () => {
-    if (newsQuantity >= 200) {
+    if (newsQuantity >= 300) {
       ToastAndroid.show('No more news', ToastAndroid.SHORT);
       setNewsEnd(true);
     } else {
@@ -93,7 +105,6 @@ const DailyRead = ({navigation, colors}) => {
     wait(2000).then(() => setRefreshing(false));
     fetchData();
   }, []);
-  // let scrollOffsetY = React.useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.compactContainer}>
       {errorStatus ? (

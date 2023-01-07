@@ -2,15 +2,19 @@ import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import React, {memo} from 'react';
 import ScreenDimensions from '../../assets/UI/ScreenDimensions';
 
-const DailyReadRender = ({item, navigation, colors}) => {
+const DailyReadRender = ({item, navigation, colors, offSetNumber}) => {
+
   //   Navigation Function
   const NavigateDetailsPage = () => {
-    navigation.navigate('Details', {data: item, colors: colors});
+    navigation.navigate('Details', {
+      data: item,
+      offSetNumber: offSetNumber,
+      colors: colors,
+    });
   };
   return (
     <TouchableOpacity onPress={NavigateDetailsPage} activeOpacity={0.4}>
       <View
-      
         activeOpacity={0.4}
         style={[styles.compactCard, {backgroundColor: colors.cardBackground}]}>
         <Image source={{uri: item.imageUrl}} style={styles.compactImage} />
@@ -24,8 +28,11 @@ const DailyReadRender = ({item, navigation, colors}) => {
           </Text>
           <Text
             style={[
-              
-              {color: colors.disabledText, fontSize: 12,  width: ScreenDimensions.width * 0.65},
+              {
+                color: colors.disabledText,
+                fontSize: 12,
+                width: ScreenDimensions.width * 0.65,
+              },
             ]}>
             {item.subtitle}
           </Text>
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   compactTitle: {
-    fontWeight: "600"
+    fontWeight: '600',
   },
   compactCard: {
     paddingHorizontal: 10,
