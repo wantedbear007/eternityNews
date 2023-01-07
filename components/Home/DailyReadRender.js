@@ -10,6 +10,7 @@ const DailyReadRender = ({item, navigation, colors}) => {
   return (
     <TouchableOpacity onPress={NavigateDetailsPage} activeOpacity={0.4}>
       <View
+      
         activeOpacity={0.4}
         style={[styles.compactCard, {backgroundColor: colors.cardBackground}]}>
         <Image source={{uri: item.imageUrl}} style={styles.compactImage} />

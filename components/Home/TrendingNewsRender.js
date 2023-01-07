@@ -1,8 +1,8 @@
 import {StyleSheet, Text, Image, TouchableOpacity, View} from 'react-native';
 import React, {memo} from 'react';
+import TopHeader from './TopHeader';
 
 const TrendingNewsRender = ({colors, item, navigation}) => {
-  const a = [1, 2, 3, 5];
 
   const RenderTags = () => {
     return (
@@ -38,16 +38,6 @@ const TrendingNewsRender = ({colors, item, navigation}) => {
         <Text style={[styles.trendingTitle, {color: colors.text}]}>
           {item.title}
         </Text>
-        {/* <View style={{backgroundColor: colors.accent, flexDirection: 'row', borderRadius: 10, paddingHorizontal: 4, paddingVertical: 2}}>
-        {item.categoryNames.map(num => {
-          console.log(num);
-          return (
-            <Text key={num} style={{color: colors.text}}>
-              {num}
-            </Text>
-          );
-        })}
-      </View> */}
         <Text style={[styles.sourceText, {color: colors.disabledText}]}>
           {item.sourceName}
         </Text>
@@ -74,7 +64,7 @@ const styles = StyleSheet.create({
     height: 80,
     // flex: 3,
     // flex:
-    fontSize: 16,
+    fontSize: 15,
     // marginTop: 5,
     width: 220,
     fontWeight: '500',

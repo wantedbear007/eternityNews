@@ -5,7 +5,7 @@ import TrendingNewsRender from './TrendingNewsRender';
 import SkeletonHome from './SkeletonHome';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const TrendingNews = ({colors, navigation}) => {
+const TrendingNews = ({colors, navigation, refresh}) => {
   const [newsEnd, setNewsEnd] = useState(false);
   const [news, setNews] = useState([]);
   const [newsQuantity, setNewsQuantity] = useState(10);
@@ -28,22 +28,31 @@ const TrendingNews = ({colors, navigation}) => {
     } catch (e) {}
   };
 
-  //Fetching News
-  useEffect(() => {
-    // getStoredData();
+  // Fetch Data
+  async function fetchData() {
     try {
-      axios
+      await axios
         .get(
           `https://inshorts.me/news/trending?offset=${offSet}&limit=${newsQuantity}`,
         )
+
         .then(response => {
           setNews(response.data.data.articles);
-          // storeData(response.data.articles);
+          // console.log(response);
           setLoading(false);
         })
-        .catch(err => {});
-    } catch (e) {}
-  }, [newsQuantity]);
+        .catch(err => {
+          if (err.response) {
+            setErrorStatus(true);
+          }
+        });
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    // getStoredData();
+    fetchData();
+  }, [newsQuantity, refresh]);
 
   // FlatLost Render
   const renderItems = ({item}) =>
@@ -65,7 +74,8 @@ const TrendingNews = ({colors, navigation}) => {
   };
 
   return (
-    <View style={styles.trendingContainer}>
+    <View
+      style={[styles.trendingContainer, {backgroundColor: colors.background}]}>
       <Text
         style={[
           {
@@ -98,7 +108,7 @@ const TrendingNews = ({colors, navigation}) => {
 
 const styles = StyleSheet.create({
   trendingContainer: {
-    marginBottom: 10,
+    paddingBottom: 18,
   },
 });
 

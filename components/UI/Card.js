@@ -8,6 +8,7 @@ const Card = ({children}) => {
   return (
     <SafeAreaView style={{backgroundColor: colors.background, flex: 1}}>
       <StatusBar
+      translucent={true}
         backgroundColor={colors.cardBackground}
         barStyle={colors.darkOn ? 'default' : 'dark-content'}
       />

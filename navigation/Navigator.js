@@ -79,11 +79,27 @@ const Navigator = () => (
       initialRouteName="LoadingPage"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="BottomNav" component={BottomNav} />
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="About" component={About} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={{animation: 'fade_from_bottom'}}
+      />
       <Stack.Screen name="InfoPage" component={InfoPage} />
-      <Stack.Screen name="LoadingPage" component={LoadingPage} />
-      <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen
+        name="LoadingPage"
+        component={LoadingPage}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="Details"
+        component={Details}
+        options={{animation: 'fade_from_bottom'}}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );

@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, StyleSheet, ToastAndroid, Text} from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  ToastAndroid,
+  RefreshControl,
+} from 'react-native';
 import axios from 'axios';
 import DailyReadRender from './DailyReadRender';
 import TrendingNews from './TrendingNews';
@@ -14,6 +20,7 @@ const DailyRead = ({navigation, colors}) => {
   const [loading, setLoading] = useState(true);
   const [offSet, setOffSet] = useState(0);
   const [errorStatus, setErrorStatus] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const storeData = async val => {
     try {
@@ -31,18 +38,16 @@ const DailyRead = ({navigation, colors}) => {
     } catch (e) {}
   };
 
- 
-
-  useEffect(() => {
-    // getStoredData();
+  async function fetchData() {
     try {
-      axios
+      await axios
         .get(
           `https://inshorts.me/news/all?offset=${offSet}&limit=${newsQuantity}`,
         )
 
         .then(response => {
           setNews(response.data.data.articles);
+          // console.log(response);
           setLoading(false);
         })
         .catch(err => {
@@ -51,6 +56,11 @@ const DailyRead = ({navigation, colors}) => {
           }
         });
     } catch (error) {}
+  }
+
+  useEffect(() => {
+    // getStoredData();
+    fetchData();
   }, [newsQuantity]);
 
   const renderItems = ({item}) => {
@@ -74,6 +84,16 @@ const DailyRead = ({navigation, colors}) => {
     }
   };
 
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+    fetchData();
+  }, []);
+  // let scrollOffsetY = React.useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.compactContainer}>
       {errorStatus ? (
@@ -82,17 +102,24 @@ const DailyRead = ({navigation, colors}) => {
         </>
       ) : (
         <FlatList
-          showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           data={news}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItems}
           onEndReached={infiniteScrolling}
           ListHeaderComponent={
-            <TrendingNews colors={colors} navigation={navigation} />
+            <TrendingNews
+              colors={colors}
+              refresh={refreshing}
+              navigation={navigation}
+            />
           }
           ListFooterComponent={!newsEnd && <SkeletonHome />}
           legacyImplementation={false}
+          showsVerticalScrollIndicator={true}
           maxToRenderPerBatch={5}
           initialNumToRender={5}
           onEndReachedThreshold={0.5}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ImageBackground} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
@@ -29,11 +29,12 @@ const LoadingPage = ({navigation}) => {
           alignItems: 'center',
           justifyContent: 'center',
           flex: 1,
-          backgroundColor: colors.background,
+          backgroundColor: colors.cardBackground,
         }}>
-        <Text style={{fontSize: 30, color: colors.text}}>
+        <Image source={require("../assets/Images/appLogo.png")}/>
+        {/* <Text style={{fontSize: 30, color: colors.text}}>
           Eternity News
-        </Text>
+        </Text> */}
       </View>
     </Card>
   );
