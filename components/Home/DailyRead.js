@@ -130,6 +130,12 @@ const DailyRead = ({navigation, colors}) => {
           maxToRenderPerBatch={5}
           initialNumToRender={5}
           onEndReachedThreshold={0.5}
+          viewabilityConfig={{
+            minimumViewTime: 300,
+            viewAreaCoveragePercentThreshold: 100,
+            waitForInteraction: true,
+          }}
+          // removeClippedSubviews={true}
         />
       )}
     </View>
