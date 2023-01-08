@@ -8,6 +8,7 @@ import {
   Linking,
   Share,
   FlatList,
+  ToastAndroid,
   ImageBackground,
 } from 'react-native';
 import Card from '../components/UI/Card';
@@ -19,14 +20,16 @@ import ScreenDimensions from '../assets/UI/ScreenDimensions';
 import {RenderTags} from '../components/Home/TrendingNewsRender';
 
 const Details = ({route, navigation}) => {
+  const offSetNumber = route.params.offSetNumber + 5;
   const item = route.params.data;
   const [news, setNews] = useState([item]);
+  const [newsQuantity, setNewsQuantity] = useState(4);
+  const [offSet, setOffSet] = useState(offSetNumber + 5);
 
   const {shareButton, copyButton, webIcon} = Icons();
-  const offSetNumber = route.params.offSetNumber + 5;
   console.log(offSetNumber);
   const colors = route.params.colors;
-  const newsQuantity = 30;
+  // const newsQuantity = 30;
 
   // date
   const RenderDate = () => {
@@ -41,7 +44,7 @@ const Details = ({route, navigation}) => {
     try {
       await axios
         .get(
-          `https://inshorts.me/news/all?offset=${offSetNumber}&limit=${newsQuantity}`,
+          `https://inshorts.me/news/all?offset=${offSet}&limit=${newsQuantity}`,
         )
 
         .then(response => {
@@ -58,9 +61,21 @@ const Details = ({route, navigation}) => {
     }
   }
 
+  // Infinite Scrolling Function 
+  const infiniteScrolling = () => {
+    console.log("called")
+    if (newsQuantity >= 300) {
+      ToastAndroid.show('No more news', ToastAndroid.SHORT);
+      // setNewsEnd(true);
+    } else {
+      // setOffSet(newsQuantity);
+      setNewsQuantity(newsQuantity + 2);
+    }
+  };
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [newsQuantity]);
 
   // ShareFunction
   const onShare = () => {
@@ -72,6 +87,7 @@ const Details = ({route, navigation}) => {
   // Copy to clipboard handler
   const copyToClipboard = () => {
     Clipboard.setString(item.title + ' (' + item.content + ')');
+    ToastAndroid.show('News Copied', ToastAndroid.SHORT);
   };
 
   // Footer
@@ -87,7 +103,7 @@ const Details = ({route, navigation}) => {
         ]}
         onPress={onPress}>
         <IconRender icon={icon} />
-        <Text style={{marginLeft: 4}}>{text}</Text>
+        <Text style={{marginLeft: 4, color: colors.text}}>{text}</Text>
       </TouchableOpacity>
     );
   };
@@ -213,6 +229,8 @@ const Details = ({route, navigation}) => {
           legacyImplementation={false}
           maxToRenderPerBatch={5}
           decelerationRate={'fast'}
+          onEndReached={infiniteScrolling}
+
         />
       </View>
     </Card>
