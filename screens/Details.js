@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  // ScrollView,
   Linking,
   Share,
   FlatList,
@@ -20,14 +19,12 @@ import ScreenDimensions from '../assets/UI/ScreenDimensions';
 import {RenderTags} from '../components/Home/TrendingNewsRender';
 
 const Details = ({route, navigation}) => {
-  // trial
   const item = route.params.data;
   const [news, setNews] = useState([item]);
 
-  const {shareButton, backButton, copyButton, webIcon} = Icons();
+  const {shareButton, copyButton, webIcon} = Icons();
   const offSetNumber = route.params.offSetNumber + 5;
   console.log(offSetNumber);
-  // console.log(route.params)
   const colors = route.params.colors;
   const newsQuantity = 30;
 
@@ -77,59 +74,49 @@ const Details = ({route, navigation}) => {
     Clipboard.setString(item.title + ' (' + item.content + ')');
   };
 
+  // Footer
+  const Footer = ({onPress, text, icon}) => {
+    return (
+      <TouchableOpacity
+        style={[
+          styles.btnContainer,
+          {
+            width: ScreenDimensions.width / 4,
+            // backgroundColor: colors.background,
+          },
+        ]}
+        onPress={onPress}>
+        <IconRender icon={icon} />
+        <Text style={{marginLeft: 4}}>{text}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   //Flat list renderer
   const RenderCard = ({item}) => {
     // hellloooo
-    const Footer = () => {
+    const FooterBtn = () => {
       return (
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingHorizontal: 15,
+            paddingHorizontal: 20,
+            paddingVertical: 20,
             position: 'absolute',
             width: ScreenDimensions.width,
             bottom: 20,
           }}>
-          <TouchableOpacity
-            style={[
-              styles.btnContainer,
-              {
-                width: ScreenDimensions.width / 4,
-                backgroundColor: colors.background,
-              },
-            ]}
-            onPress={copyToClipboard}>
-            <IconRender icon={copyButton} />
-            <Text style={{marginLeft: 4}}>Copy</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={onShare}
-            style={[
-              styles.btnContainer,
-              {
-                width: ScreenDimensions.width / 4,
-                backgroundColor: colors.background,
-              },
-            ]}>
-            <IconRender icon={shareButton} />
-            <Text style={{marginLeft: 4}}>Share</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          <Footer onPress={copyToClipboard} text={'Copy'} icon={copyButton} />
+          <Footer
             onPress={() => {
               Linking.openURL(item.sourceUrl);
             }}
-            style={[
-              styles.btnContainer,
-              {
-                width: ScreenDimensions.width / 4,
-                backgroundColor: colors.background,
-              },
-            ]}>
-            <IconRender icon={webIcon} />
-            <Text style={{marginLeft: 4}}>Read More</Text>
-          </TouchableOpacity>
+            text={'Read More'}
+            icon={webIcon}
+          />
+          <Footer onPress={onShare} text={'Share'} icon={shareButton} />
         </View>
       );
     };
@@ -207,7 +194,7 @@ const Details = ({route, navigation}) => {
             </View>
           </View>
         </View>
-        <Footer />
+        <FooterBtn />
       </View>
     );
   };
