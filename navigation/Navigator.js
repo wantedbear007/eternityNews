@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Theme from '../assets/UI/Theme';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Svg, {Path} from 'react-native-svg';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Screens
 import Home from '../screens/Home';
@@ -74,6 +75,7 @@ const BottomNav = () => {
 };
 
 const Navigator = () => (
+  // <SafeAreaProvider style={{flex: 1}}>
   <NavigationContainer>
     <Stack.Navigator
       initialRouteName="LoadingPage"
@@ -102,6 +104,7 @@ const Navigator = () => (
       />
     </Stack.Navigator>
   </NavigationContainer>
+  // </SafeAreaProvider>
 );
 
 export default Navigator;

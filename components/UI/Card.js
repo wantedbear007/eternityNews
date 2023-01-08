@@ -1,19 +1,18 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Theme from '../../assets/UI/Theme';
 
 const Card = ({children}) => {
   const colors = Theme();
   return (
-    <SafeAreaView style={{backgroundColor: colors.background, flex: 1}}>
+    <SafeAreaProvider style={{backgroundColor: colors.background, flex: 1}}>
       <StatusBar
-      translucent={true}
         backgroundColor={colors.cardBackground}
         barStyle={colors.darkOn ? 'default' : 'dark-content'}
       />
       {children}
-    </SafeAreaView>
+     </SafeAreaProvider> 
   );
 };
 

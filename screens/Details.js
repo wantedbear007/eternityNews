@@ -5,10 +5,11 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
+  // ScrollView,
   Linking,
   Share,
   FlatList,
+  ImageBackground,
 } from 'react-native';
 import Card from '../components/UI/Card';
 import IconRender from '../components/UI/IconRender';
@@ -16,22 +17,27 @@ import Icons from '../assets/UI/Icons';
 import Clipboard from '@react-native-clipboard/clipboard';
 import axios from 'axios';
 import ScreenDimensions from '../assets/UI/ScreenDimensions';
+import {RenderTags} from '../components/Home/TrendingNewsRender';
 
 const Details = ({route, navigation}) => {
   // trial
   const item = route.params.data;
   const [news, setNews] = useState([item]);
 
-  const {bigShareButton, backButton, copyButton} = Icons();
+  const {shareButton, backButton, copyButton, webIcon} = Icons();
   const offSetNumber = route.params.offSetNumber + 5;
   console.log(offSetNumber);
   // console.log(route.params)
   const colors = route.params.colors;
   const newsQuantity = 30;
 
-  // making news list
-
-  // console.log(news)
+  // date
+  const RenderDate = () => {
+    const date = new Date(Number(item.createdAt));
+    return (
+      <Text style={{color: colors.disabledText}}>{date.toDateString()}</Text>
+    );
+  };
 
   // fetch thumb News
   async function fetchData() {
@@ -73,68 +79,144 @@ const Details = ({route, navigation}) => {
 
   //Flat list renderer
   const RenderCard = ({item}) => {
+    // hellloooo
+    const Footer = () => {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingHorizontal: 15,
+            position: 'absolute',
+            width: ScreenDimensions.width,
+            bottom: 20,
+          }}>
+          <TouchableOpacity
+            style={[
+              styles.btnContainer,
+              {
+                width: ScreenDimensions.width / 4,
+                backgroundColor: colors.background,
+              },
+            ]}
+            onPress={copyToClipboard}>
+            <IconRender icon={copyButton} />
+            <Text style={{marginLeft: 4}}>Copy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onShare}
+            style={[
+              styles.btnContainer,
+              {
+                width: ScreenDimensions.width / 4,
+                backgroundColor: colors.background,
+              },
+            ]}>
+            <IconRender icon={shareButton} />
+            <Text style={{marginLeft: 4}}>Share</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(item.sourceUrl);
+            }}
+            style={[
+              styles.btnContainer,
+              {
+                width: ScreenDimensions.width / 4,
+                backgroundColor: colors.background,
+              },
+            ]}>
+            <IconRender icon={webIcon} />
+            <Text style={{marginLeft: 4}}>Read More</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    };
+
     return (
       // <Card>
-      <View style={{flex: 1, height: ScreenDimensions.height}}>
-        {/* <ScrollView> */}
+      <View
+        style={{
+          flex: 1,
+          height: ScreenDimensions.height - 25,
+          backgroundColor: colors.cardBackground,
+        }}>
         <View>
           <View style={styles.parentContainer}>
             <View style={styles.topNavigation}>
-              <Text style={[styles.titleText, {color: colors.text}]}>
-                {item.title}
-              </Text>
-            </View>
-
-            <View
-              style={[
-                styles.cardContainer,
-                {backgroundColor: colors.cardBackground},
-              ]}>
-              <Image
-                style={styles.imageContainer}
-                source={{uri: item.imageUrl}}
-              />
-              <View style={styles.childContainer}>
-                <Text style={[styles.authorName, {color: colors.disabledText}]}>
-                  {'Author: '}
-                  {item.authorName}
-                </Text>
-                <Text style={[styles.sourceName, {color: colors.accent}]}>
-                  {item.sourceName}
-                </Text>
+              <View>
+                <ImageBackground
+                  style={[
+                    {
+                      paddingVertical: 15,
+                      paddingHorizontal: 10,
+                    },
+                    styles.imgBackground,
+                  ]}
+                  source={{uri: item.imageUrl}}
+                  blurRadius={90}>
+                  <RenderTags colors={colors} item={item} />
+                  <Text style={[styles.titleText, {color: '#fff'}]}>
+                    {item.title}
+                  </Text>
+                  <Text style={{color: '#CFDBD5', fontSize: 17}}>
+                    {item.subtitle}
+                  </Text>
+                </ImageBackground>
+                <Image
+                  style={[
+                    styles.imageContainer,
+                    {width: ScreenDimensions.width},
+                  ]}
+                  source={{uri: item.imageUrl}}
+                />
               </View>
-              <Text style={[styles.description, {color: colors.text}]}>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+                paddingHorizontal: 14,
+                paddingVertical: 15,
+                backgroundColor: colors.background,
+              }}>
+              <Text style={[styles.sourceName, {color: colors.accent}]}>
+                {item.sourceName}
+              </Text>
+              <RenderDate />
+            </View>
+            <View style={[styles.cardContainer]}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: 14,
+                }}>
+                <View
+                  style={{flexDirection: 'row', alignItems: 'center'}}></View>
+              </View>
+
+              <Text style={[styles.description, {color: colors.disabledText}]}>
                 {item.content}
               </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(item.sourceUrl);
-                }}>
-                <Text style={[styles.source, {color: colors.accent}]}>
-                  Read source
-                </Text>
-              </TouchableOpacity>
+
+              {/* <Footer /> */}
             </View>
           </View>
         </View>
-        {/* </ScrollView> */}
-        <View style={styles.bottomControls}>
-          <IconRender
-            onPress={() => navigation.navigate('BottomNav')}
-            icon={backButton}
-          />
-          <IconRender onPress={copyToClipboard} icon={copyButton} />
-          <IconRender onPress={onShare} icon={bigShareButton} />
-        </View>
+        <Footer />
       </View>
-      /* </Card> */
     );
   };
 
   return (
     <Card>
-      <View style={[styles.grandParent,{height: ScreenDimensions.height} ]}>
+      <View style={[styles.grandParent, {height: ScreenDimensions.height}]}>
         <FlatList
+          // fadingEdgeLength={200}
           data={news}
           keyExtractor={(item, index) => index.toString()}
           renderItem={RenderCard}
@@ -147,56 +229,6 @@ const Details = ({route, navigation}) => {
         />
       </View>
     </Card>
-    /* // <Card>
-    //   <ScrollView>
-    //     <View style={styles.parentContainer}>
-    //       <View style={styles.topNavigation}>
-    //         <Text style={[styles.titleText, {color: colors.text}]}>
-    //           {item.title}
-    //         </Text>
-    //       </View>
-
-    //       <View */
-    /* //         style={[ */
-    //           styles.cardContainer,
-    //           {backgroundColor: colors.cardBackground},
-    //         ]}>
-    //         <Image
-    //           style={styles.imageContainer}
-    //           source={{uri: item.imageUrl}}
-    //         />
-    //         <View style={styles.childContainer}>
-    //           <Text style={[styles.authorName, {color: colors.disabledText}]}>
-    //             {'Author: '}
-    //             {item.authorName}
-    //           </Text>
-    //           <Text style={[styles.sourceName, {color: colors.accent}]}>
-    //             {item.sourceName}
-    //           </Text>
-    //         </View>
-    //         <Text style={[styles.description, {color: colors.text}]}>
-    //           {item.content}
-    //         </Text>
-    //         <TouchableOpacity
-    //           onPress={() => {
-    //             Linking.openURL(item.sourceUrl);
-    //           }}>
-    //           <Text style={[styles.source, {color: colors.accent}]}>
-    //             Read source
-    //           </Text>
-    //         </TouchableOpacity>
-    //       </View>
-    //     </View>
-    //   </ScrollView>
-    //   <View style={styles.bottomControls}>
-    //     <IconRender
-    //       onPress={() => navigation.navigate('BottomNav')}
-    //       icon={backButton}
-    //     />
-    //     <IconRender onPress={copyToClipboard} icon={copyButton} />
-    //     <IconRender onPress={onShare} icon={bigShareButton} />
-    //   </View>
-    // </Card> */}
   );
 };
 
@@ -206,6 +238,16 @@ const styles = StyleSheet.create({
     height: '100%',
     // marginVertical: 40
     // paddingVertical: 40,
+  },
+
+  btnContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingVertical: 7,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    textAlign: 'center',
+    justifyContent: 'center',
   },
   parentContainer: {
     // marginHorizontal: 15,
@@ -219,26 +261,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     // marginTop: 40,
   },
+
+  imgBackground: {
+    tintColor: '#000',
+  },
   titleText: {
-    fontSize: 27,
+    fontSize: 20,
     fontWeight: '600',
-    marginBottom: 20,
+    // marginBottom: 20,
     // marginLeft: 8,
   },
   imageContainer: {
     // marginVertical: 10,
-    width: '100%',
-    height: 250,
+    // width: '100%',
+    height: 270,
     resizeMode: 'cover',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
   },
   cardContainer: {
     width: '100%',
-    paddingBottom: 30,
-    borderRadius: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 2,
+    // backgroundColor: "red"
+    // paddingBottom: 30,
+    // borderRadius: 15,
   },
   childContainer: {
+    // backgroundColor: "red",
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -265,6 +315,7 @@ const styles = StyleSheet.create({
   },
   source: {
     marginLeft: 15,
+    fontWeight: '600',
   },
 });
 

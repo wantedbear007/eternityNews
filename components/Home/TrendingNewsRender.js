@@ -1,25 +1,22 @@
 import {StyleSheet, Text, Image, TouchableOpacity, View} from 'react-native';
 import React, {memo} from 'react';
-import TopHeader from './TopHeader';
+
+// Function for rendering tags
+export function RenderTags({colors, item}) {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      {item.categoryNames.map(num => {
+        return (
+          <Text key={num} style={{color: colors.accent, marginRight: 3}}>
+            {num.toUpperCase()}
+          </Text>
+        );
+      })}
+    </View>
+  );
+}
 
 const TrendingNewsRender = ({colors, item, navigation}) => {
-
-  const RenderTags = () => {
-    return (
-      // <View>
-      <View style={{flexDirection: 'row'}}>
-        {item.categoryNames.map(num => {
-          return (
-            <Text key={num} style={{color: colors.accent, marginRight: 3}}>
-              {num.toUpperCase()}
-            </Text>
-          );
-        })}
-      </View>
-      // </View>
-    );
-  };
-
   // Navigation Function
   const NavigateDetailsPage = () => {
     navigation.navigate('Details', {data: item, colors: colors});
@@ -34,7 +31,7 @@ const TrendingNewsRender = ({colors, item, navigation}) => {
       ]}>
       <Image source={{uri: item.imageUrl}} style={styles.trendingImage} />
       <View style={styles.trendingCard}>
-        <RenderTags />
+        <RenderTags colors={colors} item={item} />
         <Text style={[styles.trendingTitle, {color: colors.text}]}>
           {item.title}
         </Text>

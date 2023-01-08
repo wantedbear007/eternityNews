@@ -6,3 +6,4 @@ const ScreenDimensions = {
 };
 
 export default ScreenDimensions;
+    

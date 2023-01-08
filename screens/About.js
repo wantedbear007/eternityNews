@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     marginVertical: ScreenDimensions.height * 0.15,
     alignItems: 'flex-end',
-    fontWeight: "600"
+    fontWeight: '600',
   },
   cardContainer: {
     marginRight: 30,
