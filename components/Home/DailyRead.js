@@ -88,7 +88,7 @@ const DailyRead = ({navigation, colors}) => {
       setNewsEnd(true);
     } else {
       setOffSet(newsQuantity);
-      setNewsQuantity(newsQuantity + 15);
+      setNewsQuantity(newsQuantity + 10);
     }
   };
 

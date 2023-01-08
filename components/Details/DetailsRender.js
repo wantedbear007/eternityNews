@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 17,
     marginBottom: 10,
+    lineHeight: 28,
     marginHorizontal: 15,
   },
   bottomControls: {
