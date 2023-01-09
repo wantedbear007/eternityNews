@@ -23,7 +23,6 @@ const DailyRead = ({navigation, colors}) => {
   const [refreshing, setRefreshing] = useState(false);
 
   // delete
-  const [del, setDel] = useState([]);
 
   // const storeData = async val => {
   //   try {

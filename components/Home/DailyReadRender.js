@@ -47,7 +47,7 @@ class DailyReadRender extends React.PureComponent {
               {item.subtitle}
             </Text>
             <TouchableOpacity onPress={this.NavigateDetailsPage}>
-              <Text style={{color: colors.accent}}>Read More..</Text>
+              <Text style={{color: colors.accent}}>Read More</Text>
             </TouchableOpacity>
             <Text style={[styles.sourceText, {color: colors.disabledText}]}>
               {item.sourceName}
@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
   compactCard: {
     paddingHorizontal: 10,
     paddingVertical: 20,
-    borderBottomLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderTopLeftRadius: 10,
     borderBottomRightRadius: 10,
     flexDirection: 'row',

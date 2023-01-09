@@ -74,10 +74,10 @@ class DetailsRender extends React.PureComponent {
             icon={copyButton}
           />
           <Footer
-            onPress={() => {
+            onPrDess={() => {
               Linking.openURL(this.props.item.sourceUrl);
             }}
-            text={'Read More'}
+            text={'Learn More'}
             icon={webIcon}
           />
           <Footer onPress={this.onShare} text={'Share'} icon={shareButton} />

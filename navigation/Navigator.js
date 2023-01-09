@@ -4,7 +4,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Theme from '../assets/UI/Theme';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Svg, {Path} from 'react-native-svg';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Screens
 import Home from '../screens/Home';
@@ -13,6 +12,7 @@ import Details from '../screens/Details';
 import Explore from '../screens/Explore';
 import InfoPage from '../screens/InfoPage';
 import LoadingPage from '../screens/LoadingPage';
+import Search from '../screens/Search';
 
 // For app navigation
 const Stack = createNativeStackNavigator();
@@ -22,6 +22,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomNav = () => {
   const colors = Theme();
+
 
   return (
     <Tab.Navigator
@@ -78,7 +79,9 @@ const Navigator = () => (
   // <SafeAreaProvider style={{flex: 1}}>
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName="LoadingPage"
+      // initialRouteName="LoadingPage"
+      initialRouteName="Search"
+
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="BottomNav" component={BottomNav} />
       <Stack.Screen
@@ -101,6 +104,11 @@ const Navigator = () => (
         name="Details"
         component={Details}
         options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        // options={{animation: 'fade_from_bottom'}}
       />
     </Stack.Navigator>
   </NavigationContainer>

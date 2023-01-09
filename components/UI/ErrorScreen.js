@@ -3,13 +3,14 @@ import React from "react";
 import IconRender from "./IconRender";
 import Icons from "../../assets/UI/Icons";
 
-const ErrorScreen = ({colors}) => {
+const ErrorScreen = ({colors, btnVisibility = true}) => {
     const {errorIcon} = Icons()
     return (
         <View style={styles.parent}>
         <IconRender icon={errorIcon} />
             <Text style={{color: colors.text, marginBottom: 4}}>Error Occurred</Text>
-            <Button title="Read Offline News" color={colors.accent} />
+            {btnVisibility  && <Button title="Read Offline News" color={colors.accent} />}
+            {/* <Button title="Read Offline News" color={colors.accent} /> */}
         </View>
     )
 }

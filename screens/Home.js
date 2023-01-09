@@ -8,11 +8,10 @@ import Icons from '../assets/UI/Icons';
 const Home = ({navigation}) => {
   const colors = Theme();
   const icons = Icons();
-  
 
   return (
     <Card>
-      <TopHeader colors={colors} icons={icons} />
+      <TopHeader navigation={navigation} colors={colors} icons={icons} />
       <DailyRead navigation={navigation} colors={colors} />
     </Card>
   );

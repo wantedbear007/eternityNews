@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   ToastAndroid,
-  ImageBackground,
 } from 'react-native';
 import Theme from '../assets/UI/Theme';
 import IconRender from '../components/UI/IconRender';
@@ -26,9 +25,7 @@ const InfoPage = ({navigation}) => {
     try {
       const jsonVal = JSON.stringify(txt);
       await AsyncStorage.setItem('username', jsonVal);
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   };
 
   // sUBMIT TEXT HANDLER
@@ -43,52 +40,55 @@ const InfoPage = ({navigation}) => {
 
   return (
     <Card>
-
-        <SunButton
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 16,
-            bottom: 0,
-            flex: 1
-          }}
-        />
-        <View style={[styles.parentContainer]}>
-          <View />
-          <KeyboardAvoidingView>
-            <Image
-              source={require('../assets/Images/appLogo.png')}
-              style={styles.img}
-            />
-            <Text style={[styles.title, {color: colors.text}]}>
-              Welcome to Eternity News !
-            </Text>
-            <Text style={[styles.slogan, {color: colors.disabledText}]}>
-              Better informed briefly.
-            </Text>
-            <TextInput
-              style={[styles.input, {color: colors.text}]}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder={'Enter your name'}
-              autoCapitalize="words"
-              multiline={false}
-              placeholderTextColor={colors.disabledText}
-              underlineColorAndroid={colors.disabledText}
-            />
-          </KeyboardAvoidingView>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity
+      <SunButton
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 16,
+          bottom: 0,
+          flex: 1,
+        }}
+      />
+      <View style={[styles.parentContainer]}>
+        <View />
+        <KeyboardAvoidingView>
+          <Image
+            source={require('../assets/Images/appLogo.png')}
+            style={styles.img}
+          />
+          <Text style={[styles.title, {color: colors.text}]}>
+            Welcome to Eternity News !
+          </Text>
+          <Text style={[styles.slogan, {color: colors.disabledText}]}>
+            Better informed briefly.
+          </Text>
+          <TextInput
+            style={[styles.input, {color: colors.text}]}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder={'Enter your name'}
+            autoCapitalize="words"
+            multiline={false}
+            placeholderTextColor={colors.disabledText}
+            underlineColorAndroid={colors.disabledText}
+          />
+        </KeyboardAvoidingView>
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity
+            onPress={buttonHandler}
+            activeOpacity={0.4}
+            style={[styles.btn, {backgroundColor: colors.accent}]}>
+            <IconRender
               onPress={buttonHandler}
-              activeOpacity={0.4}
-              style={[styles.btn, {backgroundColor: colors.accent}]}>
-              <IconRender onPress={buttonHandler} opacity={true} icon={staticNextButton} />
-            </TouchableOpacity>
-          </View>
+              opacity={true}
+              icon={staticNextButton}
+            />
+          </TouchableOpacity>
         </View>
+      </View>
       {/* </ImageBackground> */}
-     </Card>
+    </Card>
   );
 };
 const styles = StyleSheet.create({

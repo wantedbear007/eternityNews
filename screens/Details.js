@@ -6,24 +6,30 @@ import axios from 'axios';
 import ScreenDimensions from '../assets/UI/ScreenDimensions';
 import DetailsRender from '../components/Details/DetailsRender';
 
-const Details = ({route, navigation}) => {
-  const offSetNumber = route.params.offSetNumber + 5;
+const Details = ({route}) => {
+  let offSetNumber = 1;
+  let keywords = '';
+  try {
+    keywords = route.params.keywords;
+    offSetNumber = route.params.offSetNumber + 5;
+  } catch (err) {}
   const item = route.params.data;
   const [news, setNews] = useState([item]);
   const [newsQuantity, setNewsQuantity] = useState(5);
-  const [offSet, setOffSet] = useState(offSetNumber + 5);
+  const [offSet, setOffSet] = useState(offSetNumber);
 
   const icons = Icons();
   const colors = route.params.colors;
 
   // fetch thumb News
-  async function fetchData() {
+  async function fetchData(keywords = '') {
+    let base_url = `https://inshorts.me/news/all?offset=${offSet}&limit=${newsQuantity}`;
+    if (keywords.length >= 1) {
+      base_url = `https://inshorts.me/news/search?query=${keywords}&offset=${offSet}&limit=${newsQuantity}`;
+    }
     try {
       await axios
-        .get(
-          `https://inshorts.me/news/all?offset=${offSet}&limit=${newsQuantity}`,
-        )
-
+        .get(base_url)
         .then(response => {
           let newsArray = response.data.data.articles;
           const renderNews = news.concat(newsArray);
@@ -34,25 +40,22 @@ const Details = ({route, navigation}) => {
           }
         });
     } catch (error) {
-      console.log(error);
     }
   }
 
   // Infinite Scrolling Function
   const infiniteScrolling = () => {
-    console.log('called');
     if (newsQuantity >= 300) {
       ToastAndroid.show('No more news', ToastAndroid.SHORT);
       // setNewsEnd(true);
     } else {
       setOffSet(offSet + newsQuantity);
-      console.log(newsQuantity);
       setNewsQuantity(newsQuantity + 10);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(keywords);
   }, [newsQuantity]);
 
   // Detail renderer

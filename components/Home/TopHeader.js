@@ -3,9 +3,9 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Context from '../../context/Context';
 import IconRender from '../UI/IconRender';
 
-const TopHeader = ({colors, icons}) => {
+const TopHeader = ({colors, icons, navigation}) => {
   const {darkTheme, themeHandler} = useContext(Context);
-  const {moonIcon, sunIcon} = icons;
+  const {moonIcon, sunIcon, searchIcon} = icons;
 
   const themeButtonHandler = () => themeHandler(true);
   return (
@@ -14,19 +14,27 @@ const TopHeader = ({colors, icons}) => {
         <View style={styles.textContainer}>
           <Text style={[styles.title, {color: colors.text}]}>Discover</Text>
           <Text style={[styles.slogan, {color: colors.accent}]}>
-            {/* Read the World Today! */}
             Better informed briefly.
           </Text>
         </View>
 
-        {/* <IconRender icon={sunIcon} onPress={themeButtonHandler} /> */}
-        <TouchableOpacity onPress={themeButtonHandler}>
-          {darkTheme ? (
-            <IconRender icon={sunIcon} onPress={themeButtonHandler} />
-          ) : (
-            <IconRender icon={moonIcon} onPress={themeButtonHandler} />
-          )}
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            onPress={themeButtonHandler}
+            style={{marginRight: 16}}>
+            <IconRender
+              icon={searchIcon}
+              onPress={() => navigation.navigate('Search')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={themeButtonHandler}>
+            {darkTheme ? (
+              <IconRender icon={sunIcon} onPress={themeButtonHandler} />
+            ) : (
+              <IconRender icon={moonIcon} onPress={themeButtonHandler} />
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
