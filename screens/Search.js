@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
@@ -25,20 +26,24 @@ function Search({navigation}) {
   const [newsEnd, setNewsEnd] = useState(false);
   const [offSet, setOffSet] = useState(0);
   const [errorStatus, setErrorStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {searchIcon, backButton} = Icons();
   const colors = Theme();
 
   async function fetchData() {
+    setLoading(true);
     const base_url = `https://inshorts.me/news/search?query=${keywords}&offset=${offSet}&limit=${newsQuantity}`;
     try {
       await axios
         .get(base_url)
         .then(response => {
           setNews(response.data.data.articles);
+          setLoading(false);
         })
         .catch(err => {
           if (err.response) {
+            setLoading(false);
             setErrorStatus(true);
           }
         });
@@ -123,22 +128,30 @@ function Search({navigation}) {
           <IconRender icon={searchIcon} onPress={() => searchBtnHandler()} />
         </View>
       </View>
-      {errorStatus ? (
-        <>
-          <ErrorScreen colors={colors} btnVisibility={false} />
-        </>
+      {loading ? (
+        <View>
+          <ActivityIndicator size="large" color={colors.accent} />
+        </View>
       ) : (
-        <FlatList
-          scrollEventThrottle={16}
-          data={news}
-          ListFooterComponent={!newsEnd && <SkeletonHome />}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
-          legacyImplementation={false}
-          maxToRenderPerBatch={5}
-          onEndReached={infiniteScrolling}
-          initialNumToRender={5}
-        />
+        <View>
+          {errorStatus ? (
+            <>
+              <ErrorScreen colors={colors} btnVisibility={false} />
+            </>
+          ) : (
+            <FlatList
+              scrollEventThrottle={16}
+              data={news}
+              ListFooterComponent={!newsEnd && <SkeletonHome />}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={renderItem}
+              legacyImplementation={false}
+              maxToRenderPerBatch={5}
+              onEndReached={infiniteScrolling}
+              initialNumToRender={5}
+            />
+          )}
+        </View>
       )}
     </Card>
   );
