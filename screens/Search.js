@@ -7,6 +7,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
@@ -15,6 +16,7 @@ import Icons from '../assets/UI/Icons';
 import axios from 'axios';
 import SkeletonHome from '../components/Home/SkeletonHome';
 import ErrorScreen from '../components/UI/ErrorScreen';
+import ScreenDimensions from '../assets/UI/ScreenDimensions';
 
 function Search({navigation}) {
   const [keywords, setKeywords] = useState('google');
@@ -24,7 +26,7 @@ function Search({navigation}) {
   const [offSet, setOffSet] = useState(0);
   const [errorStatus, setErrorStatus] = useState(false);
 
-  const {searchIcon} = Icons();
+  const {searchIcon, backButton} = Icons();
   const colors = Theme();
 
   async function fetchData() {
@@ -87,22 +89,40 @@ function Search({navigation}) {
     }
   };
 
+  const searchBtnHandler = () => {
+    fetchData();
+    Keyboard.dismiss();
+  };
+
   return (
-    <Card>
-      <Text style={[styles.search, {color: colors.text}]}>Search</Text>
+    <Card statusBarColor={colors.background}>
       <View style={styles.searchContainer}>
-        <IconRender icon={searchIcon} />
-        <TextInput
-          style={{fontSize: 40}}
-          onChangeText={setKeywords}
-          onSubmitEditing={fetchData}
-          placeholder={'Search News'}
-          returnKeyType="search"
-          cursorColor={colors.accent}
-          underlineColorAndroid={colors.disabledText}
-        />
+        {/* <Text style={[styles.search, {color: colors.text}]}>Search</Text> */}
+        <View style={[styles.searchBar, {borderColor: colors.disabledText}]}>
+          <IconRender
+            icon={backButton}
+            onPress={() => navigation.navigate('Home')}
+          />
+
+          <TextInput
+            style={{
+              fontSize: 20,
+              width: ScreenDimensions.width / 1.5,
+              backgroundColor: colors.cardBackground,
+              borderRadius: 20,
+              paddingHorizontal: 10,
+            }}
+            onChangeText={setKeywords}
+            onSubmitEditing={fetchData}
+            placeholder={'Search News, articles...'}
+            returnKeyType="search"
+            cursorColor={colors.accent}
+            //   underlineColorAndroid={colors.disabledText}
+            inlineImageLeft="search_icon"
+          />
+          <IconRender icon={searchIcon} onPress={() => searchBtnHandler()} />
+        </View>
       </View>
-      {/* <TrendingNews colors={colors} /> */}
       {errorStatus ? (
         <>
           <ErrorScreen colors={colors} btnVisibility={false} />
@@ -125,6 +145,17 @@ function Search({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  searchBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderRadius: 22,
+    marginVertical: 20,
+    marginHorizontal: 12,
+  },
+  searchContainer: {
+    // marginTop: 300
+  },
   search: {
     fontSize: 33,
     letterSpacing: 2,
