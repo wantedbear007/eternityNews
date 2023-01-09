@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Keyboard,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
@@ -27,9 +28,28 @@ function Search({navigation}) {
   const [offSet, setOffSet] = useState(0);
   const [errorStatus, setErrorStatus] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [suggestions, setSuggestions] = useState([]);
   const {searchIcon, backButton} = Icons();
   const colors = Theme();
+
+  function searchSuggestion(query = '') {
+    const base_url = `https://suggestqueries-clients6.youtube.com/complete/search?client=firefox&q=${query}`;
+    try {
+      axios
+        .get(base_url, {
+          headers: {
+            'User-Agent':
+              'Mozilla/5.0 (Windows NT 10.0; rv:96.0) Gecko/20100101 Firefox/96.0',
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => {
+          setSuggestions(response['data'][1]);
+        });
+    } catch (err) {}
+  }
+
+  //   console.log(suggestions)
 
   async function fetchData() {
     setLoading(true);
@@ -52,7 +72,26 @@ function Search({navigation}) {
 
   useEffect(() => {
     fetchData();
+    // searchSuggestion();
   }, [newsQuantity]);
+
+  const RenderSuggestion = () => {
+    console.log("runn")
+    return (
+      <View>
+      <Text>Hello</Text>
+        {suggestions.map(item => (
+        <TouchableOpacity key={item}>
+          <Text>{item}</Text>
+        </TouchableOpacity>
+        ))}
+      </View>
+    );
+  };
+
+  useEffect(() => {
+    RenderSuggestion()
+  }, [keywords])
 
   function renderItem({item}) {
     const NavigateDetailsPage = () => {
@@ -128,6 +167,7 @@ function Search({navigation}) {
           <IconRender icon={searchIcon} onPress={() => searchBtnHandler()} />
         </View>
       </View>
+      <RenderSuggestion />
       {loading ? (
         <View>
           <ActivityIndicator size="large" color={colors.accent} />
