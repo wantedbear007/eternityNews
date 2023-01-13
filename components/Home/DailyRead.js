@@ -12,6 +12,7 @@ import TrendingNews from './TrendingNews';
 import AsyncStorage from '@react-native-community/async-storage';
 import SkeletonHome from './SkeletonHome';
 import ErrorScreen from '../UI/ErrorScreen';
+import ScreenDimensions from '../../assets/UI/ScreenDimensions';
 
 const DailyRead = ({navigation, colors}) => {
   const [newsQuantity, setNewsQuantity] = useState(15);
@@ -103,7 +104,7 @@ const DailyRead = ({navigation, colors}) => {
     <View style={styles.compactContainer}>
       {errorStatus ? (
         <>
-          <ErrorScreen colors={colors} btnVisibility={false}  />
+          <ErrorScreen colors={colors} btnVisibility={false} />
         </>
       ) : (
         <FlatList
@@ -133,6 +134,11 @@ const DailyRead = ({navigation, colors}) => {
             viewAreaCoveragePercentThreshold: 100,
             waitForInteraction: true,
           }}
+          getItemLayout={(_, index) => ({
+            length: ScreenDimensions.width - 30, //  WIDTH + (MARGIN_HORIZONTAL * 2)
+            offset: (60 + 20) * index, //  ( WIDTH + (MARGIN_HORIZONTAL*2) ) * (index)
+            index,
+          })}
           // removeClippedSubviews={true}
         />
       )}
