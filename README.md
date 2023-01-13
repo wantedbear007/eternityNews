@@ -8,7 +8,8 @@
 <img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/1.jpg">
 <img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/2.jpg">
 <img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/3.jpg">
-
 <img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/4.jpg">
 <img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/5.jpg">
+<img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/6.jpg">
+<img width="190" alt="Home screen" src="https://github.com/wantedbear007/eternityNews/blob/main/Screenshots/7.jpg">
 </div>
