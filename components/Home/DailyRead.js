@@ -49,7 +49,6 @@ const DailyRead = ({navigation, colors}) => {
 
         .then(response => {
           setNews(response.data.data.articles);
-          // console.log(response);
           // storeData(response.data.data.articles)
           setLoading(false);
         })
@@ -104,7 +103,7 @@ const DailyRead = ({navigation, colors}) => {
     <View style={styles.compactContainer}>
       {errorStatus ? (
         <>
-          <ErrorScreen colors={colors} />
+          <ErrorScreen colors={colors} btnVisibility={false}  />
         </>
       ) : (
         <FlatList

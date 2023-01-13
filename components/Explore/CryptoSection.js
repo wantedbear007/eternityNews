@@ -5,7 +5,7 @@ const CryptoSection = ({cryptoPrice}) => {
   return (
     <View style={styles.parentContainer}>
       {cryptoPrice.map((item, index) => {
-        const lol = Number(item.price);
+        {/* const lol = Number(item.price); */}
         return (
           <View
             key={index}

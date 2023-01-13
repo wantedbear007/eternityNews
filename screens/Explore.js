@@ -13,6 +13,7 @@ import SkeletonExplore from '../components/Explore/SkeletonExplore';
 import IconRender from '../components/UI/IconRender';
 import Icons from '../assets/UI/Icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import ErrorScreen from '../components/UI/ErrorScreen';
 
 const Explore = ({navigation}) => {
   const colors = Theme();
@@ -27,6 +28,7 @@ const Explore = ({navigation}) => {
   const [quote, setQuote] = useState({qte: 'Loading...', author: ''});
   const [jokes, setJokes] = useState([]);
   const [userName, setUserName] = useState('😀');
+  const [error, setError] = useState(false);
 
   // Image API page Number
   let pageNumber = Math.floor(Math.random() * 200);
@@ -44,23 +46,27 @@ const Explore = ({navigation}) => {
     try {
       fetch(
         'https://api.nasa.gov/planetary/apod?api_key=0XVfgvwJDjzYEUxQPrsFA0UGtcR6YWA96MHbk6Im',
-      ).then(response =>
-        response.json().then(response => setNasaData(response)),
-      );
+      )
+        .then(response =>
+          response.json().then(response => setNasaData(response)),
+        )
+        .catch(err => {});
     } catch (err) {}
     // IMAGE REQUEST
     const url = 'https://picsum.photos/v2/list?page=' + pageNumber + '&limit=5';
     try {
       fetch(url)
         .then(response => response.json())
-        .then(data => setImageData(data));
+        .then(data => setImageData(data))
+        .catch(err => {});
     } catch (err) {}
 
     // AFFIRMATION REQUEST
     try {
       fetch('https://www.affirmations.dev/')
         .then(response => response.json())
-        .then(data => setAffirmation(data.affirmation));
+        .then(data => setAffirmation(data.affirmation))
+        .catch(err => {});
     } catch (error) {}
 
     // CRYPTO REQUEST
@@ -68,7 +74,10 @@ const Explore = ({navigation}) => {
       fetch(
         'https://api.coingecko.com/api/v3/coins/markets?vs_currency=INR&order=market_cap_desc&per_page=2&page=1&sparkline=false&price_change_percentage=7d',
       ).then(response =>
-        response.json().then(response => setCryptoPrices(response)),
+        response
+          .json()
+          .then(response => setCryptoPrices(response))
+          .catch(err => {}),
       );
     } catch (error) {}
     GetQuotes();
@@ -81,7 +90,7 @@ const Explore = ({navigation}) => {
       fetch('https://api.quotable.io/random')
         .then(response => response.json())
         .then(data => {
-          setQuote({qte: data.content, author: data.author});
+          setQuote({qte: data.content, author: data.author}).catch(err => {});
         });
     } catch (err) {}
   };
@@ -91,7 +100,8 @@ const Explore = ({navigation}) => {
     try {
       fetch('https://v2.jokeapi.dev/joke/Any?type=single')
         .then(response => response.json())
-        .then(data => setJokes(data));
+        .then(data => setJokes(data))
+        .catch(err => {});
     } catch (err) {}
   };
 
@@ -104,8 +114,9 @@ const Explore = ({navigation}) => {
       jokes &&
       quote
     ) {
+      setError(false);
       setLoading(false);
-    }
+    } else setError(true);
   }, [imageData, nasaData, cryptoPrice, affirmation]);
 
   const SectionDivider = () => (
@@ -132,26 +143,31 @@ const Explore = ({navigation}) => {
 
   return (
     <Card>
-        <View style={[{backgroundColor: colors.cardBackground, paddingBottom: 5}]}>
-          <View style={styles.parentContainer}>
-            <View style={styles.topContainer}>
-              <IconRender opacity={true} icon={compassIcon} />
-              <Text style={[styles.headingText, {color: colors.text}]}>
-                Explore
-              </Text>
-            </View>
-            <IconRender
-              icon={infoIcon}
-              style={{marginRight: 10}}
-              onPress={NavigateAboutPage}
-            />
+      <View
+        style={[{backgroundColor: colors.cardBackground, paddingBottom: 5}]}>
+        <View style={styles.parentContainer}>
+          <View style={styles.topContainer}>
+            <IconRender opacity={true} icon={compassIcon} />
+            <Text style={[styles.headingText, {color: colors.text}]}>
+              Explore
+            </Text>
           </View>
+          <IconRender
+            icon={infoIcon}
+            style={{marginRight: 10}}
+            onPress={NavigateAboutPage}
+          />
         </View>
+      </View>
       <ScrollView>
         <Text style={[styles.greet, {color: colors.text}]}>
           {Greeting} {userName} !
         </Text>
-        {loading ? <SkeletonExplore /> : <RenderContent />}
+        {!error ? (
+          <View>{loading ? <SkeletonExplore /> : <RenderContent />}</View>
+        ) : (
+          <ErrorScreen colors={colors} btnVisibility={false} />
+        )}
       </ScrollView>
       {/* </View> */}
     </Card>

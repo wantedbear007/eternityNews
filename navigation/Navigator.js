@@ -79,8 +79,8 @@ const Navigator = () => (
   // <SafeAreaProvider style={{flex: 1}}>
   <NavigationContainer>
     <Stack.Navigator
-      // initialRouteName="LoadingPage"
-      initialRouteName="Search"
+      initialRouteName="LoadingPage"
+      // initialRouteName="Search"
 
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="BottomNav" component={BottomNav} />

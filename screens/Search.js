@@ -8,7 +8,6 @@ import {
   Image,
   TouchableOpacity,
   Keyboard,
-  Button,
 } from 'react-native';
 import Card from '../components/UI/Card';
 import Theme from '../assets/UI/Theme';
@@ -20,7 +19,7 @@ import ErrorScreen from '../components/UI/ErrorScreen';
 import ScreenDimensions from '../assets/UI/ScreenDimensions';
 
 function Search({navigation}) {
-  const [keywords, setKeywords] = useState('');
+  const [keywords, setKeywords] = useState('news');
   const [newsQuantity, setNewsQuantity] = useState(15);
   const [news, setNews] = useState([]);
   const [newsEnd, setNewsEnd] = useState(false);
@@ -30,7 +29,7 @@ function Search({navigation}) {
   const [suggestions, setSuggestions] = useState([]);
   const {searchIcon, backButton} = Icons();
   const [suggestionPanel, setSuggestionPanel] = useState(false);
-  
+
   const colors = Theme();
 
   function searchSuggestion(query = '') {
@@ -57,7 +56,6 @@ function Search({navigation}) {
 
   async function fetchData(pass_keyword = '') {
     const base_url = `https://inshorts.me/news/search?query=${keywords}&offset=${offSet}&limit=${newsQuantity}`;
-    console.log(base_url);
 
     try {
       await axios
@@ -197,31 +195,34 @@ function Search({navigation}) {
         </View>
       </View>
       {suggestionPanel && <RenderSuggestion />}
-      {loading ? (
-        <View>
-          <SkeletonHome />
-        </View>
-      ) : (
-        <View>
-          {errorStatus ? (
-            <>
-              <ErrorScreen colors={colors} btnVisibility={false} />
-            </>
-          ) : (
-            <FlatList
-              scrollEventThrottle={16}
-              data={news}
-              ListFooterComponent={!newsEnd && <SkeletonHome />}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={renderItem}
-              legacyImplementation={true}
-              maxToRenderPerBatch={5}
-              onEndReached={infiniteScrolling}
-              initialNumToRender={5}
-            />
-          )}
-        </View>
-      )}
+
+      <View>
+        {loading ? (
+          <View>
+            <SkeletonHome />
+          </View>
+        ) : (
+          <View>
+            {errorStatus ? (
+              <>
+                <ErrorScreen colors={colors} btnVisibility={false} />
+              </>
+            ) : (
+              <FlatList
+                scrollEventThrottle={16}
+                data={news}
+                ListFooterComponent={!newsEnd && <SkeletonHome />}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={renderItem}
+                legacyImplementation={true}
+                maxToRenderPerBatch={5}
+                onEndReached={infiniteScrolling}
+                initialNumToRender={5}
+              />
+            )}
+          </View>
+        )}
+      </View>
     </Card>
   );
 }
