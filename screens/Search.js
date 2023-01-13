@@ -8,7 +8,6 @@ import {
   Image,
   TouchableOpacity,
   Keyboard,
-  ActivityIndicator,
   Button,
 } from 'react-native';
 import Card from '../components/UI/Card';
@@ -21,7 +20,7 @@ import ErrorScreen from '../components/UI/ErrorScreen';
 import ScreenDimensions from '../assets/UI/ScreenDimensions';
 
 function Search({navigation}) {
-  const [keywords, setKeywords] = useState('google');
+  const [keywords, setKeywords] = useState('');
   const [newsQuantity, setNewsQuantity] = useState(15);
   const [news, setNews] = useState([]);
   const [newsEnd, setNewsEnd] = useState(false);
@@ -30,10 +29,15 @@ function Search({navigation}) {
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const {searchIcon, backButton} = Icons();
+  const [suggestionPanel, setSuggestionPanel] = useState(false);
+  
   const colors = Theme();
 
   function searchSuggestion(query = '') {
+    // let query_com = query;
+    // query_com = query
     const base_url = `https://suggestqueries-clients6.youtube.com/complete/search?client=firefox&q=${query}`;
+
     try {
       axios
         .get(base_url, {
@@ -51,19 +55,21 @@ function Search({navigation}) {
 
   //   console.log(suggestions)
 
-  async function fetchData() {
-    setLoading(true);
+  async function fetchData(pass_keyword = '') {
     const base_url = `https://inshorts.me/news/search?query=${keywords}&offset=${offSet}&limit=${newsQuantity}`;
+    console.log(base_url);
+
     try {
       await axios
         .get(base_url)
         .then(response => {
           setNews(response.data.data.articles);
+          setSuggestionPanel(false);
           setLoading(false);
         })
         .catch(err => {
           if (err.response) {
-            setLoading(false);
+            // setLoading(false);
             setErrorStatus(true);
           }
         });
@@ -72,26 +78,45 @@ function Search({navigation}) {
 
   useEffect(() => {
     fetchData();
-    // searchSuggestion();
   }, [newsQuantity]);
 
+  // suggestion handler
+  function HandleSuggestion(qry = '') {
+    // console.log('ran')
+    setKeywords(qry);
+    // console.log(qry)
+    // console.log(keywords)
+    fetchData(qry);
+    // setSuggestionPanel(false);
+    Keyboard.dismiss();
+  }
+
   const RenderSuggestion = () => {
-    console.log("runn")
     return (
-      <View>
-      <Text>Hello</Text>
+      <View
+        style={[
+          styles.suggestionContainer,
+          {backgroundColor: colors.background},
+        ]}>
         {suggestions.map(item => (
-        <TouchableOpacity key={item}>
-          <Text>{item}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            key={item}
+            style={styles.searchContainer}
+            onPress={() => HandleSuggestion(item)}>
+            <Text style={[styles.searchText, {color: colors.disabledText}]}>
+              {item}
+            </Text>
+          </TouchableOpacity>
         ))}
       </View>
     );
   };
 
   useEffect(() => {
-    RenderSuggestion()
-  }, [keywords])
+    searchSuggestion(keywords);
+    setSuggestionPanel(true);
+    // RenderSuggestion()
+  }, [keywords]);
 
   function renderItem({item}) {
     const NavigateDetailsPage = () => {
@@ -135,6 +160,7 @@ function Search({navigation}) {
 
   const searchBtnHandler = () => {
     fetchData();
+    setSuggestionPanel(false);
     Keyboard.dismiss();
   };
 
@@ -150,13 +176,16 @@ function Search({navigation}) {
 
           <TextInput
             style={{
+              color: colors.text,
               fontSize: 20,
               width: ScreenDimensions.width / 1.5,
               backgroundColor: colors.cardBackground,
               borderRadius: 20,
               paddingHorizontal: 10,
             }}
+            placeholderTextColor={colors.disabledText}
             onChangeText={setKeywords}
+            value={keywords}
             onSubmitEditing={fetchData}
             placeholder={'Search News, articles...'}
             returnKeyType="search"
@@ -167,10 +196,10 @@ function Search({navigation}) {
           <IconRender icon={searchIcon} onPress={() => searchBtnHandler()} />
         </View>
       </View>
-      <RenderSuggestion />
+      {suggestionPanel && <RenderSuggestion />}
       {loading ? (
         <View>
-          <ActivityIndicator size="large" color={colors.accent} />
+          <SkeletonHome />
         </View>
       ) : (
         <View>
@@ -185,7 +214,7 @@ function Search({navigation}) {
               ListFooterComponent={!newsEnd && <SkeletonHome />}
               keyExtractor={(item, index) => index.toString()}
               renderItem={renderItem}
-              legacyImplementation={false}
+              legacyImplementation={true}
               maxToRenderPerBatch={5}
               onEndReached={infiniteScrolling}
               initialNumToRender={5}
@@ -245,6 +274,25 @@ const styles = StyleSheet.create({
   },
   sourceName: {
     fontWeight: '600',
+  },
+
+  suggestionContainer: {
+    position: 'absolute',
+    top: 75,
+    width: '100%',
+    zIndex: 100,
+    paddingHorizontal: 72,
+    // borderRadius: 20,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+  searchContainer: {
+    paddingVertical: 6,
+
+    // backgroundColor:
+  },
+  searchText: {
+    fontSize: 15,
   },
 });
 
